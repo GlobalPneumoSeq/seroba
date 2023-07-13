@@ -5,8 +5,7 @@ This is a fork of Wellcome Sanger Institute Pathogen Informatics' SeroBA. As the
 We do not provide any support for the use or interpretation of this software, and it is provided on an "as-is" basis.
 
 ## About 
-SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS reads for given references. You can use SeroBA to download references from (https://github.com/phe-bioinformatics/PneumoCaT) to do identify the capsular type of Streptococcus pneumoniae.
-
+SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS reads for given references. You can use SeroBA to download references from [PneumoCaT](https://github.com/phe-bioinformatics/PneumoCaT) to do identify the capsular type of Streptococcus pneumoniae.
 
 ## Contents
 - [SeroBA](#seroba)
@@ -14,13 +13,14 @@ SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS read
   - [About](#about)
   - [Contents](#contents)
   - [Introduction](#introduction)
-  - [Installation](#installation)
-    - [Required dependencies](#required-dependencies)
-    - [Running the tests](#running-the-tests)
+  - [Docker Image](#docker-image)
   - [Usage](#usage)
+    - [Running the tests](#running-the-tests)
     - [Setting up the database](#setting-up-the-database)
-    - [Usage](#usage-1)
-    - [Output](#output)
+    - [Creates a Database for kmc and ariba](#creates-a-database-for-kmc-and-ariba)
+    - [Identify serotype of your input data](#identify-serotype-of-your-input-data)
+    - [Summaries the output in one tsv file](#summaries-the-output-in-one-tsv-file)
+  - [Output](#output)
   - [Troubleshooting](#troubleshooting)
   - [License](#license)
   - [Citation](#citation)
@@ -28,23 +28,20 @@ SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS read
 ## Introduction
 SeroBA can predict serotypes, by identifying the cps locus, directly from raw whole genome sequencing read data with 98% concordance using a k-mer based method, can process 10,000 samples in just over 1 day using a standard server and can call serotypes at a coverage as low as 10x. SeroBA is implemented in Python3 and is freely available under an open source GPLv3
 
-## Installation
-SeroBA has the following dependencies:
+## Docker Image
+A pre-built Docker Image is available on [harryhungch/seroba on Docker Hub](https://hub.docker.com/repository/docker/harryhungch/seroba/)
 
-### Required dependencies
-* Python3 version >= 3.3.2
-* KMC version >= 3.0
-* MUMmer version >= 3.1
-* Ariba
+
+## Usage
+All the following instructions are assuming you are working within a Docker container
 
 ### Running the tests
 The test can be run from the top level directory:  
 
 ```
-python setup.py test
+python3 setup.py test
 ```
 
-## Usage
 ### Setting up the database
 You can use the CTV of PneumoCaT by using seroba  getPneumocat. It is also possible to add new serotypes by adding the references sequence to the "references.fasta" file in the database folder. Out of the information provided by this database a TSV file is created while using seroba createDBs. You can easily put in additional genetic information for any of these serotypes in the given format.
 
@@ -84,8 +81,7 @@ positional arguments:
   database dir      directory to store the PneumoCats capsular type variant (CTV) database
 ```
 
-### Usage
-Creates a Database for kmc and ariba
+### Creates a Database for kmc and ariba
 ```
 usage: seroba createDBs  <database dir> <kmer size>
 
@@ -96,7 +92,7 @@ positional arguments:
 Example : 
 seroba createDBs my_database/ 71
 ```
-Identify serotype of your input data
+### Identify serotype of your input data
 ```
 usage: seroba runSerotyping [options]  <databases directory> <read1> <read2> <prefix>
 
@@ -115,7 +111,7 @@ usage: seroba runSerotyping [options]  <databases directory> <read1> <read2> <pr
       --coverage COVERAGE  threshold for k-mer coverage of the reference sequence (default = 20)                         
 ```
 
-Summaries the output in one tsv file
+### Summaries the output in one tsv file
 ```
 usage: seroba summary  <output folder>
 
@@ -123,7 +119,7 @@ positional arguments:
   output folder   directory where the output directories from seroba runSerotyping are stored
 ```   
 
-### Output
+## Output
 In the folder 'prefix' you will find a pred.tsv including your predicted serotype as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of "seroba summary" a tsv file called summary.tsv is created that consists of three columns (sample Id , serotype, comments). Serotypes that do not match any reference are marked as "untypable"(v0.1.3).
 
 __detailed_serogroup_info example:__
