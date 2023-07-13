@@ -44,3 +44,7 @@ FROM app as test
 # print out various help options and version
 RUN seroba version && \
   seroba --help
+
+# run built-in test
+RUN cd /seroba && \
+  python3 setup.py test
