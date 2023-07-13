@@ -17,7 +17,7 @@ import copy
 class Error (Exception): pass
 
 class Serotyping:
-    def __init__(self,databases, fw_reads, bw_reads, prefix, clean, cov=20):
+    def __init__(self,databases, fw_reads, bw_reads, prefix, clean=True, cov=20):
 
         self.pneumcat_refs = os.path.join(databases,'streptococcus-pneumoniae-ctvdb')
         self.cd_cluster =  os.path.join(databases,'cd_cluster.tsv')
