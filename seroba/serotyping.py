@@ -17,7 +17,7 @@ import copy
 class Error (Exception): pass
 
 class Serotyping:
-    def __init__(self,databases, fw_reads, bw_reads, prefix,clean=True,cov=20):
+    def __init__(self,databases, fw_reads, bw_reads, prefix, clean=True, cov=20):
 
         self.pneumcat_refs = os.path.join(databases,'streptococcus-pneumoniae-ctvdb')
         self.cd_cluster =  os.path.join(databases,'cd_cluster.tsv')
@@ -389,14 +389,10 @@ class Serotyping:
         min_keys = [k for k in serotype_count if serotype_count[k] == min_value]
         serotype = ''
         print(min_keys)
-        if mixed_serotype != None:
-            for key in min_keys:
-                print(key)
-                print(mixed_serotype)
-                if key not in mixed_serotype:
-                   mixed_serotype = None
+        if mixed_serotype is not None and any(key not in mixed_serotype for key in min_keys):
+            mixed_serotype = None
         print(serotype_count)
-        if  mixed_serotype!= None :
+        if  mixed_serotype is not None :
             serotype = mixed_serotype
         elif len(min_keys) > 1:
             with open(report_file) as fobj:
