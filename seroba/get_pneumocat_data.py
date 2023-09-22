@@ -11,8 +11,8 @@ class Error (Exception): pass
 class GetPneumocatData:
     def __init__(self,out_dir):
         self.out_dir = out_dir
-        self.pneumocat_release_link = 'https://github.com/phe-bioinformatics/PneumoCaT/archive/v1.1.tar.gz'
-        self.serogroup_dir = 'PneumoCaT-1.1/streptococcus-pneumoniae-ctvdb/'
+        self.pneumocat_release_link = 'https://github.com/phe-bioinformatics/PneumoCaT/archive/v1.2.1.tar.gz'
+        self.serogroup_dir = 'PneumoCaT-1.2.1/streptococcus-pneumoniae-ctvdb/'
         self.out_file = os.path.join(os.path.abspath(out_dir),'meta.tsv')
 
 
@@ -22,7 +22,7 @@ class GetPneumocatData:
         os.system('wget '+self.pneumocat_release_link)
         t = os.listdir(self.tmpdir)[0]
 
-        with tarfile.open('v1.1.tar.gz') as tar:
+        with tarfile.open('v1.2.1.tar.gz') as tar:
             subdir_and_files = [
             tarinfo for tarinfo in tar.getmembers()
             if tarinfo.name.startswith(self.serogroup_dir)
