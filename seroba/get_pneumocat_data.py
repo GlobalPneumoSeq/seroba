@@ -1,5 +1,6 @@
 import os
 import yaml
+from yaml import Loader
 from Bio import SeqIO
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
@@ -43,7 +44,7 @@ class GetPneumocatData:
                     for serotype in subdir.split('_'):
                         serogroup_dict.update({serotype:serogroup})
                     serogroup_dict.update()
-                    allele_snp=yaml.load( open( os.path.join(serogroup_dir,subdir,'mutationdb.yml'), "rb" ) )
+                    allele_snp=yaml.load( open( os.path.join(serogroup_dir,subdir,'mutationdb.yml'), "rb" ), Loader=Loader )
                     if 'genes' in allele_snp:
                         for serotype in allele_snp['genes']:
                             gene = list(allele_snp['genes'][serotype].keys())
