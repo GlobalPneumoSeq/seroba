@@ -6,9 +6,14 @@ on:
 
 env:
   IMAGE_NAME: ${{ github.repository }}
-
+  
 jobs:
+  build-to-test:
+    uses: ./.github/workflows/docker-image-build-to-test.yml
+
   build-and-push-image:
+    needs: build-to-test
+
     runs-on: ubuntu-latest
 
     permissions:
