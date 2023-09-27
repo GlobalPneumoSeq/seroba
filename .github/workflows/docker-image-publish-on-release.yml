@@ -4,9 +4,6 @@ on:
   release:
     types: [published]
 
-env:
-  IMAGE_NAME: ${{ github.repository }}
-  
 jobs:
   build-to-test:
     uses: ./.github/workflows/docker-image-build-to-test.yml
@@ -42,8 +39,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ vars.DOCKER_NAMESPACE }}/${{ env.IMAGE_NAME }}
-            ghcr.io/${{ env.IMAGE_NAME }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}
+            ghcr.io/${{ github.repository }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
