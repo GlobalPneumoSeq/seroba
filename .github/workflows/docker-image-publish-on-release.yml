@@ -41,6 +41,8 @@ jobs:
           images: |
             ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}
             ghcr.io/${{ github.repository }}
+          tags: |
+            type=semver,pattern={{version}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
