@@ -80,7 +80,7 @@ update_path () {
 }
 
 update_path ${build_dir}
-update_path ${build_dir/bin}
+update_path "${build_dir}/bin"
 update_path ${mummer_dir}
 update_path ${bowtie2_dir}
 update_path ${cdhit_dir}
