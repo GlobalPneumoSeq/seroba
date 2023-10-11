@@ -4,12 +4,12 @@ set -x
 
 start_dir=$(pwd)
 
-KMC_VERSION=3.0.0
+KMC_VERSION=3.2.1
 MUMMER_VERSION=3.23
 BOWTIE2_VERSION=2.3.1
 CDHIT_VERSION=4.6.8
 
-KMC3_DOWNLOAD_URL="https://github.com/refresh-bio/KMC/releases/download/v${KMC_VERSION}/KMC3.linux.tar.gz"
+KMC3_DOWNLOAD_URL="https://github.com/refresh-bio/KMC/releases/download/v${KMC_VERSION}/KMC${KMC_VERSION}.linux.tar.gz"
 MUMMER_DOWNLOAD_URL="http://downloads.sourceforge.net/project/mummer/mummer/${MUMMER_VERSION}/MUMmer${MUMMER_VERSION}.tar.gz"
 BOWTIE2_DOWNLOAD_URL="http://downloads.sourceforge.net/project/bowtie-bio/bowtie2/${BOWTIE2_VERSION}/bowtie2-${BOWTIE2_VERSION}-legacy-linux-x86_64.zip"
 CDHIT_DOWNLOAD_URL="https://github.com/weizhongli/cdhit/archive/V${CDHIT_VERSION}.tar.gz"
@@ -41,9 +41,9 @@ cd $build_dir
 
 download "${KMC3_DOWNLOAD_URL}" "KMC3.linux.tar.gz"
 tar xzf KMC3.linux.tar.gz
-chmod +x kmc
-chmod +x kmc_tools
-chmod +x kmc_dump
+chmod +x bin/kmc
+chmod +x bin/kmc_tools
+chmod +x bin/kmc_dump
 
 # --------------- mummer ------------------
 cd $build_dir
@@ -77,6 +77,7 @@ update_path () {
 }
 
 update_path ${build_dir}
+update_path ${build_dir/bin}
 update_path ${mummer_dir}
 update_path ${bowtie2_dir}
 update_path ${cdhit_dir}
