@@ -4,12 +4,15 @@ set -x
 
 start_dir=$(pwd)
 
-KMC_VERSION=3.2.1
+KMC_VERSION=3.2.2
 MUMMER_VERSION=3.23
 BOWTIE2_VERSION=2.3.1
 CDHIT_VERSION=4.6.8
+PYSAM_VERSION=0.15.0
+PYMUMMER_VERSION=0.10.3
+PYYAML_VERSION=5.4.1
 
-KMC3_DOWNLOAD_URL="https://github.com/refresh-bio/KMC/releases/download/v${KMC_VERSION}/KMC${KMC_VERSION}.linux.tar.gz"
+KMC3_DOWNLOAD_URL="https://github.com/refresh-bio/KMC/releases/download/v${KMC_VERSION}/KMC${KMC_VERSION}.linux.x64.tar.gz"
 MUMMER_DOWNLOAD_URL="http://downloads.sourceforge.net/project/mummer/mummer/${MUMMER_VERSION}/MUMmer${MUMMER_VERSION}.tar.gz"
 BOWTIE2_DOWNLOAD_URL="http://downloads.sourceforge.net/project/bowtie-bio/bowtie2/${BOWTIE2_VERSION}/bowtie2-${BOWTIE2_VERSION}-legacy-linux-x86_64.zip"
 CDHIT_DOWNLOAD_URL="https://github.com/weizhongli/cdhit/archive/V${CDHIT_VERSION}.tar.gz"
@@ -52,12 +55,12 @@ mummer_dir="$build_dir/MUMmer${MUMMER_VERSION}"
 tar -zxf MUMmer${MUMMER_VERSION}.tar.gz
 cd $mummer_dir
 make
+
 # --------------- bowtie2 ------------------
 cd $build_dir
 download $BOWTIE2_DOWNLOAD_URL "bowtie2-${BOWTIE2_VERSION}-legacy.zip"
 bowtie2_dir="$build_dir/bowtie2-${BOWTIE2_VERSION}-legacy"
 unzip -n bowtie2-${BOWTIE2_VERSION}-legacy.zip
-
 
 # --------------- cdhit --------------------
 cd $build_dir
@@ -82,9 +85,7 @@ update_path ${mummer_dir}
 update_path ${bowtie2_dir}
 update_path ${cdhit_dir}
 
-
-pip3 install ariba pysam==0.15.0 pymummer==0.10.3 biopython pyyaml==5.4.1
-
+pip3 install ariba pysam==${PYSAM_VERSION} pymummer==${PYMUMMER_VERSION} biopython pyyaml==${PYYAML_VERSION}
 
 echo "Add the following line to your ~/.bashrc profile"
 echo "export PATH=${build_dir}:${mummer_dir}:${bowtie2_dir}:${cdhit_dir}:${PATH}"

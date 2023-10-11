@@ -24,11 +24,10 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install git \
 # Copy repository into the image and install dependencies
 COPY . /seroba/
 RUN cd seroba && \
-  pip3 install pysam==0.15.0 &&\
   /seroba/install_dependencies.sh
 
 # set path
-ENV PATH="/seroba:/seroba/build:/seroba/build/MUMmer3.23:/seroba/build/bowtie2-2.3.1-legacy:/seroba/build/cdhit-4.6.8:${PATH}"
+ENV PATH="/seroba:/seroba/build:/seroba/build/bin:/seroba/build/MUMmer3.23:/seroba/build/bowtie2-2.3.1-legacy:/seroba/build/cdhit-4.6.8:${PATH}"
 
 # install seroba and create database (/seroba/database/)
 RUN cd /seroba && \
