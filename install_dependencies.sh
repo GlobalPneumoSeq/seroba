@@ -47,7 +47,7 @@ tar xzf KMC3.linux.tar.gz
 chmod +x bin/kmc
 chmod +x bin/kmc_tools
 chmod +x bin/kmc_dump
-
+kmc_dir="${build_dir}/bin"
 # --------------- mummer ------------------
 cd $build_dir
 download $MUMMER_DOWNLOAD_URL "MUMmer${MUMMER_VERSION}.tar.gz"
@@ -80,7 +80,7 @@ update_path () {
 }
 
 update_path ${build_dir}
-update_path "${build_dir}/bin"
+update_path ${kmc_dir}
 update_path ${mummer_dir}
 update_path ${bowtie2_dir}
 update_path ${cdhit_dir}
@@ -88,4 +88,4 @@ update_path ${cdhit_dir}
 pip3 install ariba pysam==${PYSAM_VERSION} pymummer==${PYMUMMER_VERSION} biopython pyyaml==${PYYAML_VERSION}
 
 echo "Add the following line to your ~/.bashrc profile"
-echo "export PATH=${build_dir}:${mummer_dir}:${bowtie2_dir}:${cdhit_dir}:${PATH}"
+echo "export PATH=${build_dir}:${kmc_dir}:${mummer_dir}:${bowtie2_dir}:${cdhit_dir}:${PATH}"
