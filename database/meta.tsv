@@ -22,8 +22,8 @@
 10A	10A	10A	1	ref
 10B	10A	10B	1	ref
 10C	10C	10C	1	ref
+10D	10D	10D	1	ref
 10F	10C	10F	1	ref
-10X	10X	10X	1	ref
 11A	11A	11A	1	ref
 11B	11A	11B	1	ref
 11C	11A	11C	1	ref
@@ -52,7 +52,7 @@
 19B	19B	19B	1	ref
 19C	19B	19C	1	ref
 19F	19F	19F	1	ref
-20	20	20	1	ref
+20A	20A	20A	1	ref
 21	21	21	1	ref
 22A	22A	22A	1	ref
 22F	22A	22F	1	ref
@@ -77,6 +77,7 @@
 33C	33C	33C	1	ref
 33D	33B	33D	1	ref
 33F	33A	33F	1	ref
+33G	33G	33G	1	ref
 34	34	34	1	ref
 35A	35A	35A	1	ref
 35B	35B	35B	1	ref
@@ -87,7 +88,6 @@
 37	33A	37	1	ref
 38	25A	38	1	ref
 39	39	39	1	ref
-39X	39X	39X	1	ref
 40	07B	40	1	ref
 41A	41A	41A	1	ref
 41F	41A	41F	1	ref
