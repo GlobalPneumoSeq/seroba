@@ -1,5 +1,5 @@
 # SeroBA
-This is a fork of Wellcome Sanger Institute Pathogen Informatics' SeroBA. As the original SeroBA is no longer maintained, this fork aims to integrate bug fixes to provide a stable Docker enviornment for the [GPS Unified Pipeline](https://github.com/HarryHung/gps-unified-pipeline) (a Nextflow Pipeline for processing Streptococcus pneumoniae sequencing raw reads). 
+This is a fork of [Wellcome Sanger Institute Pathogen Informatics' SeroBA](https://github.com/sanger-pathogens/seroba). As the original SeroBA is no longer maintained, this fork mainly aims to integrate bug fixes and database updates to provide a stable, updated, and containerised SeroBA for the [GPS Pipeline](https://github.com/sanger-bentley-group/gps-pipeline/) (a Nextflow Pipeline for processing *Streptococcus pneumoniae* sequencing raw reads). 
 
 ## Warning
 We do not provide any support for the use or interpretation of this software, and it is provided on an "as-is" basis.
@@ -29,7 +29,7 @@ SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS read
 SeroBA can predict serotypes, by identifying the cps locus, directly from raw whole genome sequencing read data with 98% concordance using a k-mer based method, can process 10,000 samples in just over 1 day using a standard server and can call serotypes at a coverage as low as 10x. SeroBA is implemented in Python3 and is freely available under an open source GPLv3
 
 ## Docker Image
-A pre-built Docker Image is available on [harryhungch/seroba on Docker Hub](https://hub.docker.com/repository/docker/harryhungch/seroba/)
+Upon each release, a Docker Image is automatically built and pushed to [Docker Hub](https://hub.docker.com/r/sangerbentleygroup/seroba) and [GitHub Packages](https://github.com/sanger-bentley-group/seroba/pkgs/container/seroba)
 
 
 ## Usage
