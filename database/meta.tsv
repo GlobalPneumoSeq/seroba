@@ -53,6 +53,7 @@
 19C	19B	19C	1	ref
 19F	19F	19F	1	ref
 20A	20A	20A	1	ref
+20B	20A	20B	1	ref
 21	21	21	1	ref
 22A	22A	22A	1	ref
 22F	22A	22F	1	ref
@@ -62,6 +63,7 @@
 23F	23A	23F	1	ref
 24A	24A	24A	1	ref
 24B	24B	24B	1	ref
+24C	24C	24C	1	ref
 24F	24F	24F	1	ref
 25A	25A	25A	1	ref
 25F	25A	25F	1	ref
@@ -408,6 +410,8 @@ wcyD-2	25A	38	0	allele
 wcyV	25A	25A	0	genes	0
 wcyV	25A	25F	0	genes	0
 wcyV	25A	38	0	genes	1
+whaF	20A	20A	0	genes	0
+whaF	20A	20B	0	genes	1
 wzd-1	15A	15A	0	allele
 wzd-2	15A	15B	0	allele
 wzd-2	15A	15C	0	allele
