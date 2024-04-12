@@ -29,6 +29,7 @@
 11C	11A	11C	1	ref
 11D	11A	11D	1	ref
 11F	11A	11F	1	ref
+11F_like	11A	11F_like	1	ref
 11E	11A	11E	1	ref
 12A	12A	12A	1	ref
 12B	12A	12B	1	ref
@@ -109,8 +110,10 @@ gct	11A	11B	1	pseudo	1
 gct	11A	11C	1	pseudo	0
 gct	11A	11D	1	pseudo	0
 gct	11A	11F	1	pseudo	1
+gct	11A	11F_like	1	pseudo	0
 wcjE	11A	11E	1	pseudo	1
 wcjE	11A	11A	1	pseudo	0
+wcjE	11A	11F_like	1	pseudo	0
 glf	15A	15A	0	genes	0
 glf	15A	15B	0	genes	0
 glf	15A	15C	0	genes	0
@@ -250,6 +253,7 @@ wcjE	11A	11B	0	genes	0
 wcjE	11A	11C	0	genes	0
 wcjE	11A	11D	0	genes	1
 wcjE	11A	11F	0	genes	1
+wcjE	11A	11F_like	0	genes	1
 wcjE	15A	15A	0	genes	0
 wcjE	15A	15B	0	genes	0
 wcjE	15A	15C	0	genes	0
@@ -266,10 +270,20 @@ wcrI_42	35A	42	0	snps	453	CGG
 wcrK	35A	35A	1	pseudo	1
 wcrK	35A	35C	1	pseudo	0
 wcrK	35A	42	1	pseudo	0
+wcrL_11A	11A	11A	0	snps	49	TCA
+wcrL_11A	11A	11A	0	snps	493	GAC
 wcrL_11A	11A	11A	0	snps	334	AAT
 wcrL_11A	11A	11E	0	snps	334	AAT
+wcrL_11D	11A	11D	0	snps	49	TCA
 wcrL_11D	11A	11D	0	snps	334	AGT
+wcrL_11D	11A	11D	0	snps	493	GAC
+wcrL_11F	11A	11F	0	snps	49	TCA
 wcrL_11F	11A	11F	0	snps	334	GCT
+wcrL_11F	11A	11F	0	snps	493	GAC
+wcrL_11F_like	11A	11F_like	0	snps	49	CCA
+wcrL_11F_like	11A	11F_like	0	snps	334	AAT
+wcrL_11F_like	11A	11F_like	0	snps	493	AAT
+wcrL_11F_like	11A	11F_like	0	genes	1
 wcrX	41A	41A	1	pseudo	1
 wcrX	41A	41F	1	pseudo	0
 wcwA	22A	22A	0	genes	1
@@ -282,6 +296,7 @@ wcwC_11A	11A	11B	0	genes	0
 wcwC_11A	11A	11C	0	genes	0
 wcwC_11A	11A	11D	0	genes	1
 wcwC_11F	11A	11F	0	genes	1
+wcwC_11F_like	11A	11F_like	0	genes	1
 wcwD	07A	07A	1	pseudo	1
 wcwD	07A	07F	1	pseudo	0
 wcwK_07B	07B	07B	0	snps	145	CTT
@@ -317,6 +332,7 @@ wcwR	11A	11B	0	genes	1
 wcwR	11A	11C	0	genes	1
 wcwR	11A	11D	0	genes	0
 wcwR	11A	11F	0	genes	0
+wcwR	11A	11F_like	0	genes	0
 wcxD_12A	12A	12A	0	snps	781	TTG
 wcxD_12A	12A	12A	0	snps	793	TAT
 wcxD_12A	12A	12A	0	snps	805	TCA
