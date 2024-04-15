@@ -483,6 +483,9 @@ class Serotyping:
             with open(self.prefix+'/pred.tsv', 'a') as fobj:
                 if '24' in self.sero:
                     fobj.write(self.prefix+'\tserogroup 24\t'+flag+'\n')
+                # 7D CPS may not be representative, so do not fully resolve to 7D
+                elif '07D' in self.sero:
+                    fobj.write(self.prefix + '\t07B/07D\t' + flag + '\n')
                 else:
                     fobj.write(self.prefix+'\t'+self.sero+'\t'+flag+'\n')
             shutil.rmtree(os.path.join(self.prefix,'ref'))
