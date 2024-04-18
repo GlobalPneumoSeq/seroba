@@ -5,7 +5,7 @@
             131], A]]}, 11B: {gct: [1, [!!python/tuple [130, 131], '-']]}, 11C: {
       gct: [0, [!!python/tuple [130, 131], A]]}, 11D: {gct: [0, [!!python/tuple [
             130, 131], A]]}, 11F: {gct: [1, [!!python/tuple [130, 131], '-']]},
-            11F_like: {gct: [1, [!!python/tuple [130, 131], 'A']]}},
+            11F_like: {gct: [0, [!!python/tuple [130, 131], 'A']]}},
     snps: {
       wcrL: {49: {11A: [TCA, 16, S], 11D: [TCA, 16, S], 11F: [TCA, 16, S], 11F_like: [CCA, 16, P]},
              334: {11A: [AAT, 111, N], 11D: [AGT, 111, S], 11F: [GCT, 111, A], 11F_like: [AAT, 111, N],
