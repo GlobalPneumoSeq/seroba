@@ -41,6 +41,7 @@
 15B	15A	15B	1	ref
 15C	15A	15C	1	ref
 15F	15A	15F	1	ref
+15D	15A	15D	1	ref
 16A	16A	16A	1	ref
 16F	16F	16F	1	ref
 17A	17A	17A	1	ref
@@ -120,6 +121,7 @@ wcjE	11A	11F_like	1	pseudo	0
 glf	15A	15A	0	genes	0
 glf	15A	15B	0	genes	0
 glf	15A	15C	0	genes	0
+glf	15A	15D	0	genes	0
 glf	15A	15F	0	genes	1
 glf	18A	18A	0	genes	0
 glf	18A	18B	0	genes	1
@@ -146,10 +148,12 @@ mnp1_42	35A	42	0	snps	594	TAT
 rmlB	15A	15A	0	genes	0
 rmlB	15A	15B	0	genes	0
 rmlB	15A	15C	0	genes	0
+rmlB	15A	15D	0	genes	0
 rmlB	15A	15F	0	genes	1
 rmlD	15A	15A	0	genes	0
 rmlD	15A	15B	0	genes	0
 rmlD	15A	15C	0	genes	0
+rmlD	15A	15D	0	genes	0
 rmlD	15A	15F	0	genes	1
 tts	33A	33A	0	genes	0
 tts	33A	33F	0	genes	0
@@ -226,6 +230,9 @@ wciX	18A	18C	0	genes	1
 wciX	18A	18C	1	pseudo	0
 wciX	18A	18F	0	genes	1
 wciX	18A	18F	1	pseudo	0
+wciZ	15A	15A	0	genes	0
+wciZ	15A	15D	0	genes	1
+wciZ	15A	15B	1	pseudo	0
 wciZ	15A	15B	1	pseudo	0
 wciZ	15A	15C	1	pseudo	1
 wciG	35B	35B	1	pseudo	0
@@ -260,6 +267,7 @@ wcjE	11A	11F_like	0	genes	1
 wcjE	15A	15A	0	genes	0
 wcjE	15A	15B	0	genes	0
 wcjE	15A	15C	0	genes	0
+wcjE	15A	15D	0	genes	0
 wcjE	15A	15F	0	genes	1
 wcjE	33A	33A	1	pseudo	0
 wcjE	33A	33F	1	pseudo	1
@@ -441,6 +449,7 @@ wcyV	25A	38	0	genes	1
 whaF	20A	20A	0	genes	0
 whaF	20A	20B	0	genes	1
 wzd-1	15A	15A	0	allele
+wzd-1	15A	15D	0	allele
 wzd-2	15A	15B	0	allele
 wzd-2	15A	15C	0	allele
 wzh_35A	35A	35A	0	snps	465	AGG
@@ -455,6 +464,8 @@ wzh_42	35A	42	0	snps	465	ATG
 wzh_42	35A	42	0	snps	525	CCT
 wzh_42	35A	42	0	snps	528	GAT
 wzh_42	35A	42	0	snps	567	CGT
+wzy-15A	15A	15A	0	genes	1
+wzy-15D	15A	15D	0	genes	1
 wzy-1	19A	19A	0	allele
 wzy-1	23A	23A	0	allele
 wzy-2	19A	19AF	0	allele
