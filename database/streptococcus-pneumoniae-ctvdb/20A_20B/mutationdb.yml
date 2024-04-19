@@ -1,1 +1,3 @@
-{genes: {20A: {whaF: 0}, 20B: {whaF: 1}}}
+{pseudo: {20A: {whaF: [1, [
+          !!python/tuple [881, 882], AA]]}, 20B: {whaF: [0, [!!python/tuple [881, 882],
+          A]]}}}

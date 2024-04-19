@@ -447,8 +447,8 @@ wcyD-2	25A	38	0	allele
 wcyV	25A	25A	0	genes	0
 wcyV	25A	25F	0	genes	0
 wcyV	25A	38	0	genes	1
-whaF	20A	20A	0	genes	0
-whaF	20A	20B	0	genes	1
+whaF	20A	20A	1	pseudo	1
+whaF	20A	20B	1	pseudo	0
 wzd-1	15A	15A	0	allele
 wzd-1	15A	15D	0	allele
 wzd-2	15A	15B	0	allele
