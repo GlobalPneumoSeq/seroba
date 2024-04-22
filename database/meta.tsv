@@ -65,9 +65,10 @@
 23B1	23B1	23B1	1	ref
 23F	23A	23F	1	ref
 24A	24A	24A	1	ref
-24B	24B	24B	1	ref
-24C	24C	24C	1	ref
-24F	24F	24F	1	ref
+24B	24A	24B	1	ref
+24C	24A	24C	1	ref
+24F	24A	24F	1	ref
+24F2	24F2	24F2	1	ref
 25A	25A	25A	1	ref
 25F	25A	25F	1	ref
 27	27	27	1	ref
@@ -145,6 +146,10 @@ mnp1_42	35A	42	0	snps	456	GAC
 mnp1_42	35A	42	0	snps	540	GCC
 mnp1_42	35A	42	0	snps	564	AAT
 mnp1_42	35A	42	0	snps	594	TAT
+rbsF	24A	24A	0	genes	0
+rbsF	24A	24B	0	genes	1
+rbsF	24A	24C	0	genes	1
+rbsF	24A	24F	0	genes	1
 rmlB	15A	15A	0	genes	0
 rmlB	15A	15B	0	genes	0
 rmlB	15A	15C	0	genes	0
@@ -161,6 +166,10 @@ tts	33A	37	0	genes	1
 wchA-1	23A	23A	0	allele
 wchA-2	23A	23B	0	allele
 wchA-2	23A	23F	0	allele
+wchF-1	24A	24A	0	allele
+wchF-1	24A	24C	0	allele
+wchF-2	24A	24B	0	allele
+wchF-2	24A	24F	0	allele
 wchA_09L	09A	09L	0	snps	504	TAT
 wchA_09L	09A	09L	0	snps	879	CCA
 wchA_09N	09A	09N	0	snps	504	TCT
