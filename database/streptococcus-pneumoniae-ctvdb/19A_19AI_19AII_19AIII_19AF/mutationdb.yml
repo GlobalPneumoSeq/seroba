@@ -1,0 +1,39 @@
+allele:
+  wzy: {'19A': 'wzy-1', '19AI': 'wzy-1', '19AII': 'wzy-1', '19AIII': 'wzy-1', '19AF': 'wzy-2'}
+  rmlD: {'19A': 'rmlD-1', 19AI: 'rmlD-2', 19AII: 'rmlD-2', 19AIII: 'rmlD-1'}
+  rmlB: {'19A': 'rmlB-1', 19AI: 'rmlB-2', 19AII: 'rmlB-2', 19AIII: 'rmlB-1'}
+snps:
+  mnaA:
+    880:
+      19A: [GTA, 293, V]
+      19AI: [GCA, 293, A]
+      19AII: [GTA, 293, V]
+      19AIII: [GTA, 293, V]
+      19AF: [GAT, 293, D]
+  wzg:
+    445:
+      19A: [GCT, 148, A]
+      19AI: [TCT, 148, S]
+      19AII: [GCT, 148, A]
+      19AIII: [GCT, 148, A]
+      19AF: [GCT, 148, A]
+    484:
+      19A: [AAT, 161, N]
+      19AI: [AAT, 161, N]
+      19AII: [GAC, 161, D]
+      19AIII: [AAT, 161, N]
+      19AF: [AAT, 161, N]
+    1174:
+      19A: [AGC, 391, S]
+      19AI: [AGC, 391, S]
+      19AII: [AGC, 391, S]
+      19AIII: [AGC, 391, S]
+      19AF: [ACC, 391, T]
+  wzd:
+    154:
+      19A: [ACC, 51, T]
+      19AI: [ACC, 51, T]
+      19AII: [ACC, 51, T]
+      19AIII: [ATC, 51, I]
+      19AF: [ACC, 51, T]
+

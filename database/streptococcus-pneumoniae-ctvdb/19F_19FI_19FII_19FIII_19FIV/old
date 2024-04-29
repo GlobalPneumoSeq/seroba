@@ -1,0 +1,45 @@
+snps:
+  rmlD:
+    259:
+      19F: [AGA, 86, R]
+      19FI: [AAA, 86, K]
+      19FII: [AGA, 86, R]
+      19FIII: [AGA, 86, R]
+      19FIV: [AAA, 86, K]
+  wzy:
+    214:
+      19F: [ATT, 71, I]
+      19FI: [CTT, 71, L]
+      19FII: [ATT, 71, I]
+      19FIII: [CTT, 71, L]
+      19FIV: [ATT, 71, I]
+  wzx:
+    1111:
+      19F: [ATA, 370, I]
+      19FI: [ATG, 370, M]
+      19FII: [ATA, 370, I]
+      19FIII: [ATG, 370, M]
+      19FIV: [ATA, 370, I]
+    1135:
+      19F: [ATA, 378, I]
+      19FI: [CTA, 378, L]
+      19FII: [CTA, 378, L]
+      19FIII: [CTA, 378, L]
+      19FIV: [CTA, 378, L]
+  wzh:
+    676:
+      19F: [GTA, 225, V]
+      19FI: [GCA, 225, A]
+      19FII: [GCA, 225, A]
+      19FIII: [GTA, 225, V]
+      19FIV: [GCA, 225, A]
+  wzg:
+    151:
+      19F: [GTA, 50, V]
+      19FI: [GTA, 50, V]
+      19FII: [ATA, 50, I]
+      19FIII: [ATA, 50, I]
+      19FIV: [GTA, 50, V]
+
+
+
