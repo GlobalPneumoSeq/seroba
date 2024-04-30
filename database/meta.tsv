@@ -139,7 +139,7 @@ mnaA_19A	19A	19A	0	snps	880	GTA
 mnaA_19AI	19A	19AI	0	snps	880	GCA
 mnaA_19AII	19A	19AII	0	snps	880	GTA
 mnaA_19AIII	19A	19AIII	0	snps	880	GTA
-mnaA_19AF	19A	19AF	0	snps	880	GAT
+mnaA_19AF	19A	19AF	0	snps	880	GTA
 mnp1_35A	35A	35A	0	snps	198	CGC
 mnp1_35A	35A	35A	0	snps	288	GTT
 mnp1_35A	35A	35A	0	snps	456	GGC
@@ -164,6 +164,7 @@ rbsF	24A	24C	0	genes	1
 rbsF	24A	24F	0	genes	1
 rmlB-1	19A	19A	0	allele
 rmlB-1	19A	19AIII	0	allele
+rmlB-1	19A	19AF	0	allele
 rmlB-2	19A	19AI	0	allele
 rmlB-2	19A	19AII	0	allele
 rmlB	15A	15A	0	genes	0
@@ -178,6 +179,7 @@ rmlD	15A	15D	0	genes	0
 rmlD	15A	15F	0	genes	1
 rmlD-1	19A	19A	0	allele
 rmlD-1	19A	19AIII	0	allele
+rmlD-1	19A	19AF	0	allele
 rmlD-2	19A	19AI	0	allele
 rmlD-2	19A	19AII	0	allele
 rmlD_19F	19F	19F	0	snps	94	GCT

@@ -1,7 +1,7 @@
 allele:
   wzy: {'19A': 'wzy-1', '19AI': 'wzy-1', '19AII': 'wzy-1', '19AIII': 'wzy-1', '19AF': 'wzy-2'}
-  rmlD: {'19A': 'rmlD-1', 19AI: 'rmlD-2', 19AII: 'rmlD-2', 19AIII: 'rmlD-1'}
-  rmlB: {'19A': 'rmlB-1', 19AI: 'rmlB-2', 19AII: 'rmlB-2', 19AIII: 'rmlB-1'}
+  rmlD: {'19A': 'rmlD-1', 19AI: 'rmlD-2', 19AII: 'rmlD-2', 19AIII: 'rmlD-1', 19AF: 'rmlD-1'}
+  rmlB: {'19A': 'rmlB-1', 19AI: 'rmlB-2', 19AII: 'rmlB-2', 19AIII: 'rmlB-1', 19AF: 'rmlB-1'}
 snps:
   mnaA:
     880:
@@ -9,7 +9,7 @@ snps:
       19AI: [GCA, 293, A]
       19AII: [GTA, 293, V]
       19AIII: [GTA, 293, V]
-      19AF: [GAT, 293, D]
+      19AF: [GTA, 293, V]
   wzg:
     445:
       19A: [GCT, 148, A]
