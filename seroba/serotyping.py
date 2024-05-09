@@ -159,7 +159,50 @@ class Serotyping:
                                 elif snp =='A':
                                     serotype = '06D'
 
+        if serotype == "06A":
+            # divergent wzg allele only present in 06BI and 06AIII
+            if "wzg_06BI" in row_dict:
+                serotype = "06AIII"
+            # divergent rmlB allele determines 06AI
+            elif "rmlB_4" in row_dict:
+                serotype = "06AI"
+            # divergent rmlC allele with lack of divergent rmlB allele determines 06AVI
+            elif "rmlC_2" in row_dict and "rmlB_4" not in row_dict:
+                serotype = "06AVI"
+            else:
+                # snp in wze determines 06AIV
+                for seq_id in row_dict:
+                    if seq_id == "wze":
+                        for seq in record:
+                            if row_dict[seq_id] in seq:
+                                snp = (record[seq].seq[487])
+                                if snp == 'T':
+                                    serotype = "06AIV"
 
+                # snps in wzg determines 06AII
+                for seq_id in row_dict:
+                    if seq_id == "wzg_06BII":
+                        for seq in record:
+                            if row_dict[seq_id] in seq:
+                                snp = (record[seq].seq[18])
+                                if snp == 'G':
+                                    serotype = "06AII"
+
+                # snps in wzg determines 06AV
+                for seq_id in row_dict:
+                    if seq_id == "wzg_06B":
+                        for seq in record:
+                            if row_dict[seq_id] in seq:
+                                snp = (record[seq].seq[1380])
+                                if snp == 'G':
+                                    serotype = "06AV"
+
+        # different wzg alleles can determine 6B subgroups
+        if serotype == "06B":
+            if "wzg_06BI" in row_dict:
+                serotype = "06BI"
+            elif "wzg_06BII" in row_dict:
+                serotype = "06BII"
 
         return serotype
 

@@ -4,12 +4,21 @@
 04	04	04	1	ref
 05	05	05	1	ref
 06A	06A	06A	1	ref
+06AI	06A	06AI	1	ref
+06AII	06A	06AII	1	ref
+06AIII	06A	06AIII	1	ref
+06AIV	06A	06AIV	1	ref
+06AV	06A	06AV	1	ref
+06AVI	06A	06AVI	1	ref
 06B	06A	06B	1	ref
+06BI	06A	06BI	1	ref
+06BII	06A	06BII	1	ref
 06C	06A	06C	1	ref
 06D	06A	06D	1	ref
 06E	06A	06E	1	ref
 06F	06A	06F	1	ref
 06G	06A	06G	1	ref
+06BIII	06BIII	06BIII	1	ref
 07A	07A	07A	1	ref
 07B	07B	07B	1	ref
 07C	07B	07C	1	ref
@@ -162,6 +171,8 @@ rbsF	24A	24A	0	genes	0
 rbsF	24A	24B	0	genes	1
 rbsF	24A	24C	0	genes	1
 rbsF	24A	24F	0	genes	1
+rmlB-3	06A	06A	0	allele
+rmlB-4	06A	06AI	0	allele
 rmlB-1	19A	19A	0	allele
 rmlB-1	19A	19AIII	0	allele
 rmlB-1	19A	19AF	0	allele
@@ -172,6 +183,8 @@ rmlB	15A	15B	0	genes	0
 rmlB	15A	15C	0	genes	0
 rmlB	15A	15D	0	genes	0
 rmlB	15A	15F	0	genes	1
+rmlC-1	06A	06A	0	allele
+rmlC-2	06A	06AVI	0	allele
 rmlD	15A	15A	0	genes	0
 rmlD	15A	15B	0	genes	0
 rmlD	15A	15C	0	genes	0
@@ -509,6 +522,11 @@ wzd_19AF	19A	19AF	0	snps	154	ACC
 wzd_19AI	19A	19AI	0	snps	154	ACC
 wzd_19AII	19A	19AII	0	snps	154	ACC
 wzd_19AIII	19A	19AIII	0	snps	154	ATC
+wze	06A	06A	0	allele
+wze	06A	06AIV	0	allele
+wzg_06B	06A	06B	0	allele
+wzg_06BI	06A	06BI	0	allele
+wzg_06BII	06A	06BII	0	allele
 wzg-1	19F	19F	0	allele
 wzg-1	19F	19FI	0	allele
 wzg-1	19F	19FII	0	allele
