@@ -160,12 +160,12 @@ class Serotyping:
                                     serotype = '06D'
 
         if serotype == "06A":
-            # divergent wzg allele only present in 06BI and 06AIII
-            if "wzg_06BI" in row_dict:
-                serotype = "06AIII"
             # divergent rmlB allele determines 06AI
-            elif "rmlB_4" in row_dict:
+            if "rmlB_4" in row_dict:
                 serotype = "06AI"
+            # divergent wzg allele only present in 06BI and 06AIII
+            elif "wzg_06BI" in row_dict:
+                serotype = "06AIII"
             # divergent rmlC allele with lack of divergent rmlB allele determines 06AVI
             elif "rmlC_2" in row_dict and "rmlB_4" not in row_dict:
                 serotype = "06AVI"
