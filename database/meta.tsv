@@ -18,7 +18,7 @@
 06E	06A	06E	1	ref
 06F	06A	06F	1	ref
 06G	06A	06G	1	ref
-06BIII	06BIII	06BIII	1	ref
+06BIII	06A	06BIII	1	ref
 07A	07A	07A	1	ref
 07B	07B	07B	1	ref
 07C	07B	07C	1	ref
@@ -244,6 +244,7 @@ wciN-2	06A	06C	0	allele
 wciN-2	06A	06D	0	allele
 wciN-2	33B	33D	0	allele
 wciN-3	06A	06E	0	allele
+wciN-3	06A	06BIII	0	allele
 wciP_06A	06A	06A	0	snps	583	AGT
 wciP_06B	06A	06B	0	snps	583	AAT
 wciP_06C	06A	06C	0	snps	583	AGT
@@ -579,6 +580,7 @@ wzy-1	23A	23A	0	allele
 wzy-2	19A	19AF	0	allele
 wzy-2	23A	23F	0	allele
 wzy-3	23A	23B	0	allele
+wzy_06E	06A	06E	0	allele
 wzy_09L	09A	09L	0	snps	846	GAC
 wzy_09N	09A	09N	0	snps	846	AAC
 wzy_12A	12A	12A	0	snps	251	ATT
