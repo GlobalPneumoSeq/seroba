@@ -128,15 +128,6 @@ class Serotyping:
                                     elif snp =='A':
                                         serotype = '6E(6B)'
 
-                        # use wzy to differentiate 6E and 6BIII
-                        if serotype == '6E(6B)':
-                            if 'wzy' in seq_id:
-                                for seq in record:
-                                    if row_dict[seq_id] in seq:
-                                        snp = (record[seq].seq[554])
-                                        if snp == 'G':
-                                            serotype = '06BIII'
-
             elif 'wciN_1'in row_dict:
                 for seq_id in row_dict:
                     if 'wciP' in seq_id:
