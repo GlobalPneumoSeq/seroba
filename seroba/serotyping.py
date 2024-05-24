@@ -160,17 +160,21 @@ class Serotyping:
                                     serotype = '06D'
 
         if serotype == "06A":
-            # divergent rmlB allele determines 06AI
-            if "rmlB_4" in row_dict:
-                serotype = "06AI"
-            # divergent wzg allele only present in 06BI and 06AIII
-            elif "wzg_06BI" in row_dict:
+            # divergent wzg allele only present in 06BI and 06AIII as well as rmlA allele
+            if "wzg_06BI" in row_dict and "rmlA_4" in row_dict:
                 serotype = "06AIII"
-            # divergent rmlC allele with lack of divergent rmlB allele determines 06AVI
-            elif "rmlC_2" in row_dict and "rmlB_4" not in row_dict:
+            # different rml alleles determine the subtypes
+            elif "rmlB_4" in row_dict and "rmlA_3" in row_dict and "wzg_06AI" in row_dict:
+                serotype = "06AI"
+            elif "rmlC_2" in row_dict and "rmlA_2" in row_dict:
                 serotype = "06AVI"
+            elif "rmlA_2" in row_dict and "rmlC_2" not in row_dict and "wzy_06AII" in row_dict:
+                serotype = "06AII"
+            elif "rmlA_2" in row_dict and "rmlC_2" in row_dict and "wzy_06AII" in row_dict:
+                serotype = "06AVI"
+            elif "rmlA_5" in row_dict and "wzg_06AI" in row_dict:
+                serotype = "06AV"
             else:
-                # snp in wze determines 06AIV
                 for seq_id in row_dict:
                     if seq_id == "wze":
                         for seq in record:
@@ -178,24 +182,6 @@ class Serotyping:
                                 snp = (record[seq].seq[487])
                                 if snp == 'T':
                                     serotype = "06AIV"
-
-                # snps in wzg determines 06AII
-                for seq_id in row_dict:
-                    if seq_id == "wzg_06BII":
-                        for seq in record:
-                            if row_dict[seq_id] in seq:
-                                snp = (record[seq].seq[18])
-                                if snp == 'G':
-                                    serotype = "06AII"
-
-                # snps in wzg determines 06AV
-                for seq_id in row_dict:
-                    if seq_id == "wzg_06B":
-                        for seq in record:
-                            if row_dict[seq_id] in seq:
-                                snp = (record[seq].seq[1380])
-                                if snp == 'G':
-                                    serotype = "06AV"
 
         # different wzg alleles can determine 6B subgroups
         if serotype == "06B":
@@ -437,6 +423,9 @@ class Serotyping:
         print(serotype_count)
         if  mixed_serotype is not None :
             serotype = mixed_serotype
+        # sometimes not possible to differentiate 19AI and 19AII
+        elif min_keys == ['19AI', '19AII']:
+            serotype = "19AI/19AII"
         elif len(min_keys) > 1:
             with open(report_file) as fobj:
                 tsvin = csv.reader(fobj, delimiter='\t')
