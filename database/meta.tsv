@@ -216,10 +216,6 @@ wchA-3	19F	19FI	0	allele
 wchA-3	19F	19FIII	0	allele
 wchA-4	19F	19FII	0	allele
 wchA-4	19F	19FIV	0	allele
-wchF-1	24A	24A	0	allele
-wchF-1	24A	24C	0	allele
-wchF-2	24A	24B	0	allele
-wchF-2	24A	24F	0	allele
 wchA_19F	19F	19F	0	snps	799	ATT
 wchA_19FI	19F	19FI	0	snps	799	GTC
 wchA_19FII	19F	19FII	0	snps	799	ATT

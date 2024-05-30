@@ -1,2 +1,2 @@
-{allele: {wchF: {24A: wchF-1, 24B: wchF-2, 24C: wchF-1, 24F: wchF-2}},
-    genes: {24A: {rbsF: 0}, 24B: {rbsF: 1}, 24C: {rbsF: 1}, 24F: {rbsF: 1}}}
+genes:
+  {24A: {rbsF: 0}, 24B: {rbsF: 1}, 24C: {rbsF: 1}, 24F: {rbsF: 1}}
