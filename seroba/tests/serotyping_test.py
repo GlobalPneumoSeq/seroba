@@ -279,7 +279,6 @@ class TestSerotyping(unittest.TestCase):
         cluster = 'cluster_2'
         assemblie_file = os.path.join(data_dir,'ERR1438894','assemblies.fa')
         s = serotyping.Serotyping(refs_dir, fw_read, bw_read, prefix,'--noclean')
-        print(refs_dir)
         s.cluster_serotype_dict = {
             'cluster' : ['06A','06B','06C','06D','06E'],
             'NT' : ['NT'],
