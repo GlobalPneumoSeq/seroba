@@ -433,15 +433,17 @@ class Serotyping:
                 first = next(tsvin)
                 serotype = first[0]
 
-        elif  min(serotype_count, key=serotype_count.get) =='33A':
-                with open(report_file) as fobj:
-                    tsvin = csv.reader(fobj, delimiter='\t')
-                    next(tsvin,None)
-                    first = next(tsvin)
-                    if first[0] == min(serotype_count, key=serotype_count.get):
-                        serotype = min(serotype_count, key=serotype_count.get)
-                    else:
-                        serotype = first[0]
+        elif min(serotype_count, key=serotype_count.get) == '33A':
+            with open(report_file) as fobj:
+                tsvin = csv.reader(fobj, delimiter='\t')
+                next(tsvin, None)
+                first = next(tsvin)
+                if first[0] == min(serotype_count, key=serotype_count.get):
+                    serotype = min(serotype_count, key=serotype_count.get)
+                elif serotype_count["33E"] == 0 and first[0] != min(serotype_count, key=serotype_count.get):
+                    serotype = "33F"
+                else:
+                    serotype = first[0]
         else :
             serotype =  min(serotype_count, key=serotype_count.get)
         return serotype , relevant_genetic_elements

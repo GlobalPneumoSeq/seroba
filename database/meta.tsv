@@ -97,7 +97,7 @@
 33C	33C	33C	1	ref
 33D	33B	33D	1	ref
 33F	33A	33F	1	ref
-33E	33E	33E	1	ref
+33E	33A	33E	1	ref
 33G	33G	33G	1	ref
 034	034	034	1	ref
 35A	35A	35A	1	ref
@@ -206,6 +206,7 @@ rmlD_19FIII	19F	19FIII	0	snps	766	AGC
 rmlD_19FIV	19F	19FIV	0	snps	94	ACT
 rmlD_19FIV	19F	19FIV	0	snps	766	AGC
 tts	33A	33A	0	genes	0
+tts	33A	33E	0	genes	0
 tts	33A	33F	0	genes	0
 tts	33A	37	0	genes	1
 wchA-1	23A	23A	0	allele
@@ -232,6 +233,9 @@ wciI-1	12A	12B	0	allele
 wciI-1	12A	44	0	allele
 wciI-1	12A	46	0	allele
 wciI-2	12A	12F	0	allele
+wciE	33A	33A	1	pseudo	0
+wciE	33A	33E	1	pseudo	1
+wciE	33A	33F	1	pseudo	0
 wciN-1	06A	06A	0	allele
 wciN-1	06A	06B	0	allele
 wciN-1	06A	06G	0	allele
