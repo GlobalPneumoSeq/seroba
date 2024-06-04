@@ -166,11 +166,11 @@ class Serotyping:
             # different rml alleles determine the subtypes
             elif "rmlB_4" in row_dict and "rmlA_3" in row_dict and "wzg_06AI" in row_dict:
                 serotype = "06AI"
-            elif "rmlC_2" in row_dict and "rmlA_2" in row_dict:
+            elif "rmlC_2" in row_dict and "rmlA_2" in row_dict and "wzy_06AII" in row_dict:
                 serotype = "06AVI"
-            elif "rmlA_2" in row_dict and "rmlC_2" not in row_dict and "wzy_06AII" in row_dict:
+            elif "rmlA_2" in row_dict and "rmlC_2" not in row_dict and "wzy_06AII" in row_dict and "wzg_06AII" in row_dict:
                 serotype = "06AII"
-            elif "rmlA_2" in row_dict and "rmlC_2" in row_dict and "wzy_06AII" in row_dict:
+            elif "rmlA_2" in row_dict and "rmlC_2" in row_dict and "wzy_06AII" in row_dict and "wzg_06AII" in row_dict:
                 serotype = "06AVI"
             elif "rmlA_5" in row_dict and "wzg_06AI" in row_dict:
                 serotype = "06AV"
@@ -183,11 +183,11 @@ class Serotyping:
                                 if snp == 'T':
                                     serotype = "06AIV"
 
-        # different wzg alleles can determine 6B subgroups
+        # different wzg and rml alleles can determine 6B subgroups
         if serotype == "06B":
-            if "wzg_06BI" in row_dict:
+            if "wzg_06BI" in row_dict and "rmlA_4" in row_dict and "rmlB_3" in row_dict:
                 serotype = "06BI"
-            elif "wzg_06BII" in row_dict:
+            elif "wzg_06BII" in row_dict and "rmlA_5" in row_dict and "rmlB_3" in row_dict:
                 serotype = "06BII"
 
         return serotype
