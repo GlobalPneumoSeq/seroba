@@ -1,14 +1,9 @@
 allele:
+  rmlB: {19F: rmlB-5, 19FI: rmlB-5, 19FII: rmlB-5, 19FIII: rmlB-5, 19FIV: rmlB-6}
   wchA: {19F: wchA-3, 19FI: wchA-3, 19FII: wchA-4, 19FIII: wchA-3, 19FIV: wchA-4}
+  wze: {19F: wze-1, 19FI: wze-2, 19FII: wze-2, 19FIII: wze-1, 19FIV: wze-2}
   wzg: {19F: wzg-1, 19FI: wzg-1, 19FII: wzg-1, 19FIII: wzg-1, 19FIV: wzg-2}
 snps:
-  wchA:
-    799:
-      19F: [ATT, 266, I]
-      19FI: [GTC, 266, V]
-      19FII: [ATT, 266, I]
-      19FIII: [ATT, 266, I]
-      19FIV: [ATT, 266, I]
   rmlD:
     94:
       19F: [GCT, 31, A]
@@ -22,6 +17,13 @@ snps:
       19FII: [AAC, 255, N]
       19FIII: [AGC, 255, S]
       19FIV: [AGC, 255, S]
+  wchO:
+    67:
+      19F: [AGT, 22, S]
+      19FI: [ATT, 22, I]
+      19FII: [AGT, 22, S]
+      19FIII: [ATT, 22, I]
+      19FIV: [AGT, 22, S]
   wzx:
     1111:
       19F: [ATA, 370, I]
@@ -29,25 +31,6 @@ snps:
       19FII: [ATA, 370, I]
       19FIII: [ATG, 370, M]
       19FIV: [ATA, 370, I]
-    1135:
-      19F: [ATA, 378, I]
-      19FI: [CTA, 378, L]
-      19FII: [CTA, 378, L]
-      19FIII: [CTA, 378, L]
-      19FIV: [CTA, 378, L]
-  wzg:
-    25:
-      19F: [CGT, 11, R]
-      19FI: [CGT, 11, R]
-      19FII: [CGT, 11, R]
-      19FIII: [CGT, 11, R]
-      19FIV: [GGT, 11, G]
-    34:
-      19F: [AGA, 11, R]
-      19FI: [AAA, 11, K]
-      19FII: [AAA, 11, K]
-      19FIII: [AAA, 11, K]
-      19FIV: [AAA, 11, K]
 
 
 
