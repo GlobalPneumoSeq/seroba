@@ -1,0 +1,16 @@
+allele:
+  wcjA: {36A: wcjA_36A, 36B: wcjA_36B}
+snps:
+  wcjA:
+    430:
+      36A: [AGT, 143, S]
+      36B: [GGT, 143, G]
+    805:
+      36A: [TTT, 268, F]
+      36B: [ATG, 268, M]
+    808:
+      36A: [GGC, 269, G]
+      36B: [GCT, 269, A]
+    817:
+      36A: [GCT, 272, A]
+      36B: [GTT, 272, V]
