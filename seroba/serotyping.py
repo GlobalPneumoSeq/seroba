@@ -379,7 +379,7 @@ class Serotyping:
                 else:
                     serotype_count[serotype]+=-1
         print(serotype_count)
-
+        
         if "allele" in allel_snp:
             for al in allel_snp['allele']:
                 h = [[x.ref_name, x.ref_start, x.ref_end, x.ref_length,x.qry_length,x.ref_length,x.percent_identity] for x in pymummer.coords_file.reader(os.path.join(tmpdir,'coords.txt'))]
@@ -426,6 +426,9 @@ class Serotyping:
         # sometimes not possible to differentiate 19AI and 19AII
         elif min_keys == ['19AI', '19AII']:
             serotype = "19AI/19AII"
+        # if the truncated wciE gene is present, call serotype 33E
+        elif len(min_keys) > 1 and "33E" in min_keys and serotype_count["33E"] < 0:
+            serotype = "33E"
         elif len(min_keys) > 1:
             with open(report_file) as fobj:
                 tsvin = csv.reader(fobj, delimiter='\t')
