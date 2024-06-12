@@ -364,6 +364,8 @@ wcrK	35A	42	1	pseudo	0
 wcrL_11A	11A	11A	0	snps	49	TCA
 wcrL_11A	11A	11A	0	snps	493	GAC
 wcrL_11A	11A	11A	0	snps	334	AAT
+wcrL_11A	11A	11E	0	snps	49	TCA
+wcrL_11A	11A	11E	0	snps	493	GAC
 wcrL_11A	11A	11E	0	snps	334	AAT
 wcrL_11D	11A	11D	0	snps	49	TCA
 wcrL_11D	11A	11D	0	snps	334	AGT
