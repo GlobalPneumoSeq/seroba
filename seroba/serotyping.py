@@ -4,6 +4,7 @@ from collections import Counter
 import csv
 import yaml
 import os
+import re
 import pymummer
 import xml.etree.ElementTree as ET
 import tempfile
@@ -162,18 +163,18 @@ class Serotyping:
         if serotype == "06A":
             # divergent wzg allele only present in 06BI and 06AIII as well as rmlA allele
             if "wzg_06BI" in row_dict and "rmlA_4" in row_dict:
-                serotype = "06AIII"
+                serotype = "06A-III"
             # different rml alleles determine the subtypes
             elif "rmlB_4" in row_dict and "rmlA_3" in row_dict and "wzg_06AI" in row_dict:
-                serotype = "06AI"
+                serotype = "06A-I"
             elif "rmlC_2" in row_dict and "rmlA_2" in row_dict and "wzy_06AII" in row_dict:
-                serotype = "06AVI"
+                serotype = "06A-VI"
             elif "rmlA_2" in row_dict and "rmlC_2" not in row_dict and "wzy_06AII" in row_dict and "wzg_06AII" in row_dict:
-                serotype = "06AII"
+                serotype = "06A-II"
             elif "rmlA_2" in row_dict and "rmlC_2" in row_dict and "wzy_06AII" in row_dict and "wzg_06AII" in row_dict:
-                serotype = "06AVI"
+                serotype = "06A-VI"
             elif "rmlA_5" in row_dict and "wzg_06AI" in row_dict:
-                serotype = "06AV"
+                serotype = "06A-V"
             else:
                 for seq_id in row_dict:
                     if seq_id == "wze":
@@ -181,14 +182,14 @@ class Serotyping:
                             if row_dict[seq_id] in seq:
                                 snp = (record[seq].seq[487])
                                 if snp == 'T':
-                                    serotype = "06AIV"
+                                    serotype = "06A-IV"
 
         # different wzg and rml alleles can determine 6B subgroups
         if serotype == "06B":
             if "wzg_06BI" in row_dict and "rmlA_4" in row_dict and "rmlB_3" in row_dict:
-                serotype = "06BI"
+                serotype = "06B-I"
             elif "wzg_06BII" in row_dict and "rmlA_5" in row_dict and "rmlB_3" in row_dict:
-                serotype = "06BII"
+                serotype = "06B-II"
 
         return serotype
 
@@ -317,7 +318,6 @@ class Serotyping:
             for serotype in serotypes:
                 if serotype in gene and gene_present_dict[gene] == 1:
                     serotype_count[serotype]+=-1
-
         variant_dict = Serotyping._get_nucmer_snps(variants, list(gene_present_dict.keys()) )
         mixed_serotype = None
         if "genes" in allel_snp:
@@ -379,7 +379,6 @@ class Serotyping:
                 else:
                     serotype_count[serotype]+=-1
         print(serotype_count)
-        
         if "allele" in allel_snp:
             for al in allel_snp['allele']:
                 h = [[x.ref_name, x.ref_start, x.ref_end, x.ref_length,x.qry_length,x.ref_length,x.percent_identity] for x in pymummer.coords_file.reader(os.path.join(tmpdir,'coords.txt'))]
@@ -418,6 +417,12 @@ class Serotyping:
         min_keys = [k for k in serotype_count if serotype_count[k] == min_value]
         serotype = ''
         print(min_keys)
+        # discrepancies with 37, if tts gene is present, call 37
+        with open(report_file) as f:
+            for line in f:
+                if "tts" in line:
+                    serotype = "37"
+                    return serotype, relevant_genetic_elements
         if mixed_serotype is not None and any(key not in mixed_serotype for key in min_keys):
             mixed_serotype = None
         print(serotype_count)
@@ -425,7 +430,7 @@ class Serotyping:
             serotype = mixed_serotype
         # sometimes not possible to differentiate 19AI and 19AII
         elif min_keys == ['19AI', '19AII']:
-            serotype = "19AI/19AII"
+            serotype = "19A-I/19A-II"
         # if the truncated wciE gene is present, call serotype 33E
         elif len(min_keys) > 1 and "33E" in min_keys and serotype_count["33E"] < 0:
             serotype = "33E"
@@ -449,6 +454,13 @@ class Serotyping:
                     serotype = first[0]
         else :
             serotype =  min(serotype_count, key=serotype_count.get)
+        # add dashes to 19A/F subtypes
+        if serotype != "19AF" and "19A" in serotype or "19F" in serotype:
+            sero = re.split(r'(A|F)', serotype)
+            sero = ' '.join(sero).split()
+            if len(sero) == 3:
+                serotype = f"{sero[0]}{sero[1]}-{sero[2]}"
+        
         return serotype , relevant_genetic_elements
 
 
@@ -527,6 +539,8 @@ class Serotyping:
                     fobj.write(self.prefix+'\t'+self.sero+'\t'+flag+'\n')
             shutil.rmtree(os.path.join(self.prefix,'ref'))
         if os.path.isdir(os.path.join(self.prefix,'genes')):
+            pass
             shutil.rmtree(os.path.join(self.prefix,'genes'))
         if self.clean:
+            pass
             self._clean()
