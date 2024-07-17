@@ -101,7 +101,58 @@ class Serotyping:
         shutil.copyfile(os.path.join(self.prefix,'ref','assemblies.fa.gz'),os.path.join(self.prefix,'assemblies.fa.gz'))
         os.system('gzip -d '+os.path.join(self.prefix,'assemblies.fa.gz'))
 
+    @staticmethod
+    def get_snps_from_assembly(row_dict, record, position_list, gene):
+        # get snps from specific positions of a specific gene from an ARIBA assembly file
+        snp_list = []
+        for seq_id in row_dict:
+                if gene in seq_id:
+                    for i in range(0, len(position_list)):
+                        for seq in record:
+                            if row_dict[seq_id] in seq:
+                                snp = record[seq].seq[position_list[i]]
+                                snp_list.append(snp)
+        return snp_list
+                        
+    @staticmethod
+    def serotype19F(assemblie_file, report_file):
+        """
+        Customised subtyping function for 19F subtypes.
+        Too challenging for SeroBA to determine these subtypes using the CTVdb alone
+        Subtypes will only be called if all mutations/alleles in the subtype are present
+        """ 
+        serotype = "19F"
+        with open(report_file) as fobj:
+            tsvin = csv.reader(fobj, delimiter='\t')
+            next(tsvin, None)
+            row_dict = {}
+            for row in tsvin:
+                if row[0] not in row_dict:
+                    row_dict[row[0]] = row[10]
 
+        record = SeqIO.to_dict(SeqIO.parse(assemblie_file, "fasta"))
+
+        # detect subtypes 19FII and 19FIV by presence of specific alleles
+        if "rmlB_6" in row_dict and "wchA_4" in row_dict and "wzg_2" in row_dict:
+            serotype = "19F-IV"
+        elif "rmlB_5" in row_dict and "wchA_4" in row_dict and "wzg_1" in row_dict:
+            serotype = "19F-II"
+
+        # detect subtypes 19FI and 19FIII by presence of specific mutations
+        else:
+            # snps in wze for 19F-I
+            wze_snps = Serotyping.get_snps_from_assembly(row_dict, record, [135, 207, 477], "wze")
+            if wze_snps == ['A', 'A', 'G']:
+                serotype = "19F-I"
+
+            # snps for 19F-III
+            wzx_snps = Serotyping.get_snps_from_assembly(row_dict, record, [1112, 1134], "wzx")
+            wchO_snp = Serotyping.get_snps_from_assembly(row_dict, record, [67], "wchO")
+            wzy_snp = Serotyping.get_snps_from_assembly(row_dict, record, [213], "wzy")
+            if wzx_snps == ['G','C'] and wchO_snp == ['T'] and wzy_snp == ['C'] and serotype != "19F-I":
+                serotype = "19F-III"
+
+        return serotype
 
     @staticmethod
     def serotype6(assemblie_file,report_file):
@@ -489,6 +540,10 @@ class Serotyping:
             report_file  = os.path.join(self.prefix,'report.tsv')
             assemblie_file = os.path.join(self.prefix,'assembled_genes.fa')
             self.sero = Serotyping.serotype6(assemblie_file, report_file)
+        elif "19F" in self.best_serotype:
+            report_file  = os.path.join(self.prefix,'report.tsv')
+            assemblie_file = os.path.join(self.prefix,'assembled_genes.fa')
+            self.sero = Serotyping.serotype19F(assemblie_file, report_file)
         else:
             report_file = os.path.join(self.prefix,'report.tsv')
             serogroup = self.cluster_serotype_dict[cluster][0]
