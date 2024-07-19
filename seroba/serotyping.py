@@ -1,6 +1,7 @@
 from seroba import ref_db_creator, kmc
 import sys
 from collections import Counter
+from csv import DictReader
 import csv
 import yaml
 import os
@@ -25,6 +26,7 @@ class Serotyping:
         self.fw_read = fw_reads
         self.bw_read = bw_reads
         self.meta_data = os.path.join(databases,'meta.tsv')
+        self.genetic_variant_data = os.path.join(databases,'genetic_variants.csv')
         self.prefix = prefix
         self.kmer_size = open(os.path.join(databases,'kmer_size.txt'),'r').readline().strip()
         self.kmer_db = os.path.join(databases,'kmer_db')
@@ -330,7 +332,7 @@ class Serotyping:
                     #        serotype_count[serotype]+=-0.5
 
         return serotype_count,relevant_genetic_elements
-
+        
     @staticmethod
     def _find_serotype(assemblie_file,serogroup_fasta, serogroup_dict,serotypes,report_file,prefix):
         sub_dict = {'genes':[],'pseudo':[],'allele':[],'snps':[]}
@@ -530,6 +532,15 @@ class Serotyping:
                         for entry in relevant_genetic_elements[serotype][genetic_var]:
                             wobj.write(serotype+'\t'+genetic_var+'\t'+str(entry)+'\n')
 
+    def check_genetic_variant(self, serotype):
+        # lookup whether the call is a genetic variant, if so match it to the appropriate serotype
+        with open(self.genetic_variant_data) as genetic_variants:
+            reader = DictReader(genetic_variants)
+            for row in reader:
+                if serotype == row['genetic_variant']:
+                    serotype = row['serotype']
+            return serotype
+
     def _prediction(self,assemblie_file,cluster):
         sero = ''
 
@@ -551,11 +562,11 @@ class Serotyping:
             self.sero, self.imp = Serotyping._find_serotype(assemblie_file,serogroup_fasta,self.meta_data_dict[serogroup],\
                 self.cluster_serotype_dict[cluster],report_file,self.prefix)
             self._print_detailed_output(report_file,self.imp,self.sero)
-
+        
     def _clean(self):
         files = os.listdir(self.prefix)
         for f in files:
-            if 'pred.tsv' != f and 'detailed_serogroup_info.txt' != f :
+            if 'pred.csv' != f and 'detailed_serogroup_info.txt' != f :
                 path = os.path.join(self.prefix,f)
                 os.remove(path)
 
@@ -566,14 +577,17 @@ class Serotyping:
         assemblie_file = self.prefix+'/assemblies.fa'
         self._run_kmc()
         print(self.best_serotype)
+        header = "Sample,Serotype,Genetic_Variant,Contamination_Status\n"
         if self.best_serotype =='coverage too low':
            os.system('mkdir '+self.prefix)
-           with open(self.prefix+'/pred.tsv', 'a') as fobj:
-               fobj.write(self.prefix+'\t'+self.best_serotype+'\n')
+           with open(self.prefix+'/pred.csv', 'a') as fobj:
+               fobj.write(header)
+               fobj.write(f"{self.prefix},{self.best_serotype},{self.best_serotype},NA\n")
         elif self.best_serotype == 'NT':
             os.system('mkdir '+self.prefix)
-            with open(self.prefix+'/pred.tsv', 'a') as fobj:
-                fobj.write(self.prefix+'\tuntypable\n')
+            with open(self.prefix+'/pred.csv', 'a') as fobj:
+                fobj.write(header)
+                fobj.write(f"{self.prefix},untypable,untypable,NA\n")
         else:
             cluster = self.serotype_cluster_dict[self.best_serotype]
             self._run_ariba_on_cluster(cluster)
@@ -583,15 +597,27 @@ class Serotyping:
             with open (report_file,'r') as report:
                 for line in report:
                     if 'HET' in line:
-                        flag = 'contamination'
-            with open(self.prefix+'/pred.tsv', 'a') as fobj:
-                # 7D CPS may not be representative, so do not fully resolve to 7D
-                if '07D' in self.sero:
-                    fobj.write(self.prefix + '\t07B/07D\t' + flag + '\n')
-                elif '24B' in self.sero or '24F' in self.sero or '24C' in self.sero:
-                    fobj.write(self.prefix + '\t24B/24C/24F\t' + flag + '\n')
+                        flag = 'Contaminated'
+                    else:
+                        flag = 'Pure'
+            with open(self.prefix+'/pred.csv', 'a') as fobj:
+                if '24B' in self.sero or '24F' in self.sero or '24C' in self.sero:
+                    fobj.write(header)
+                    fobj.write(f"{self.prefix},24B/24C/24F,24B/24C/24F,{flag}\n")
+                elif 'possible' in self.sero:
+                    # catch uncertain serogroup 6 calls
+                    fobj.write(header)
+                    fobj.write(f"{self.prefix},Serogroup 6,{self.sero},{flag}\n")
                 else:
-                    fobj.write(self.prefix+'\t'+self.sero+'\t'+flag+'\n')
+                    fobj.write(header)
+                    serotype = self.check_genetic_variant(self.sero)
+                    if serotype != self.sero and "6E" not in self.sero:
+                        fobj.write(f"{self.prefix},{serotype},{serotype}({self.sero}),{flag}\n")
+                    elif serotype != self.sero and "6E" in self.sero:
+                        fobj.write(f"{self.prefix},{serotype},{self.sero},{flag}\n")
+                    else:
+                        fobj.write(f"{self.prefix},{serotype},{self.sero},{flag}\n")
+
             shutil.rmtree(os.path.join(self.prefix,'ref'))
         if os.path.isdir(os.path.join(self.prefix,'genes')):
             shutil.rmtree(os.path.join(self.prefix,'genes'))
