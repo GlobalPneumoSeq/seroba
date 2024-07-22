@@ -604,6 +604,14 @@ class Serotyping:
                 if '24B' in self.sero or '24F' in self.sero or '24C' in self.sero:
                     fobj.write(header)
                     fobj.write(f"{self.prefix},24B/24C/24F,24B/24C/24F,{flag}\n")
+                elif '20' in self.sero:
+                    # early stop codon in whaF leads to no assembly of whaF, check this via file size comparison
+                    gene_size = os.path.getsize(f"{self.prefix}/assembled_genes.fa")
+                    fobj.write(header)
+                    if gene_size == 0:
+                        fobj.write(f"{self.prefix},20A,20A(20A-I),{flag}\n")
+                    else:
+                        fobj.write(f"{self.prefix},{self.sero},{self.sero},{flag}\n")
                 elif 'possible' in self.sero:
                     # catch uncertain serogroup 6 calls
                     fobj.write(header)
