@@ -605,13 +605,27 @@ class Serotyping:
                     fobj.write(header)
                     fobj.write(f"{self.prefix},24B/24C/24F,24B/24C/24F,{flag}\n")
                 elif '20' in self.sero:
-                    # early stop codon in whaF leads to no assembly of whaF, check this via file size comparison
-                    gene_size = os.path.getsize(f"{self.prefix}/assembled_genes.fa")
+                    # detect truncated wciG and whaF genes to resolve serogroup 20 serotypes
                     fobj.write(header)
-                    if gene_size == 0:
-                        fobj.write(f"{self.prefix},20A,20A(20A-I),{flag}\n")
-                    else:
+                    wciG = False
+                    whaF = False
+                    genetic_variant = self.sero
+                    with open(f"{self.prefix}/assembled_genes.fa") as handle:
+                        for record in SeqIO.parse(handle, "fasta"):
+                            if record.seq.startswith("ATGAGAAAAAATCG") and record.seq.endswith("GTCAAATTATAA"):
+                                wciG = True
+                            if record.seq.startswith("ATGATACATAAAAT") and record.seq.endswith("AGAAAGTTATAA"):
+                                whaF = True
+                    if whaF and not wciG:
+                        self.sero = "20C"
                         fobj.write(f"{self.prefix},{self.sero},{self.sero},{flag}\n")
+                    elif whaF:
+                        self.sero = "20B"
+                        fobj.write(f"{self.prefix},{self.sero},{self.sero},{flag}\n")
+                    elif not whaF:
+                        self.sero = "20A"
+                        genetic_variant = "20A-I"
+                        fobj.write(f"{self.prefix},{self.sero},{genetic_variant},{flag}\n")
                 elif 'possible' in self.sero:
                     # catch uncertain serogroup 6 calls
                     fobj.write(header)
@@ -626,8 +640,10 @@ class Serotyping:
                     else:
                         fobj.write(f"{self.prefix},{serotype},{self.sero},{flag}\n")
 
-            shutil.rmtree(os.path.join(self.prefix,'ref'))
+            #shutil.rmtree(os.path.join(self.prefix,'ref'))
         if os.path.isdir(os.path.join(self.prefix,'genes')):
-            shutil.rmtree(os.path.join(self.prefix,'genes'))
+            #shutil.rmtree(os.path.join(self.prefix,'genes'))
+            pass
         if self.clean:
-            self._clean()
+            #self._clean()
+            pass

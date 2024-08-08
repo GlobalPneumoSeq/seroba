@@ -94,3 +94,4 @@ detailed*
 database/cd*_cluster*
 database/kmer_size.txt
 temp_ariba*
+settings.json
