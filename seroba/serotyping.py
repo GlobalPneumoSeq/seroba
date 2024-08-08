@@ -640,10 +640,8 @@ class Serotyping:
                     else:
                         fobj.write(f"{self.prefix},{serotype},{self.sero},{flag}\n")
 
-            #shutil.rmtree(os.path.join(self.prefix,'ref'))
+            shutil.rmtree(os.path.join(self.prefix,'ref'))
         if os.path.isdir(os.path.join(self.prefix,'genes')):
-            #shutil.rmtree(os.path.join(self.prefix,'genes'))
-            pass
+            shutil.rmtree(os.path.join(self.prefix,'genes'))
         if self.clean:
-            #self._clean()
-            pass
+            self._clean()
