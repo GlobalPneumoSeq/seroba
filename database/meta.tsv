@@ -101,6 +101,7 @@
 33F	33A	33F	1	ref
 33E	33A	33E	1	ref
 33G	33G	33G	1	ref
+33H	33G	33H	1	ref
 034	034	034	1	ref
 35A	35A	35A	1	ref
 35B	35B	35B	1	ref
@@ -313,6 +314,8 @@ wciG-20	20A	20A	0	genes	1
 wciG-20	20A	20AI	0	genes	1
 wciG-20	20A	20B	0	genes	1
 wciG-20	20A	20C	0	genes	0
+wciG-33G	33G	33G	0	genes	1
+wciG-33G	33G	33H	0	genes	0
 wcjA_09L	09A	09L	0	snps	414	CAT
 wcjA_09L	09A	09L	0	snps	429	GGT
 wcjA_09L	09A	09L	0	snps	528	GAT

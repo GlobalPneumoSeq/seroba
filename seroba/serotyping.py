@@ -336,6 +336,7 @@ class Serotyping:
     @staticmethod
     def check_sequence_completeness(
         sequence):
+        # check a gene is in frame and contains no premature stop codons
         mutation = False
         stop_codons = {"taa", "tga", "tag"}
         complete = True
@@ -573,25 +574,38 @@ class Serotyping:
             report_file  = os.path.join(self.prefix,'report.tsv')
             assemblie_file = os.path.join(self.prefix,'assembled_genes.fa')
             self.sero = Serotyping.serotype19F(assemblie_file, report_file)
+        # check for disruptive mutations in whaF and wciG to resolve serogroup 20 serotypes
         elif "20" in self.best_serotype:
             wciG = False
             whaF = False
             with open(f"{self.prefix}/assembled_genes.fa") as handle:
-                        for record in SeqIO.parse(handle, "fasta"):
-                            if record.seq.startswith("ATGAGAAAAAATCG"):
-                                wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
-                                if wciG_completeness[0] and not wciG_completeness[1]:
-                                    wciG = True
-                            if record.seq.startswith("ATGATACATAAAAT"):
-                                whaF_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
-                                if whaF_completeness[0] and not whaF_completeness[1]:
-                                    whaF = True
+                for record in SeqIO.parse(handle, "fasta"):
+                    if record.seq.startswith("ATGAGAAAAAATCG"):
+                        wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                        if wciG_completeness[0] and not wciG_completeness[1]:
+                            wciG = True
+                    if record.seq.startswith("ATGATACATAAAAT"):
+                        whaF_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                        if whaF_completeness[0] and not whaF_completeness[1]:
+                            whaF = True
             if whaF and not wciG:
                 self.sero = "20C"
             elif whaF:
                 self.sero = "20B"
             elif not whaF:
                 self.sero = "20A"
+        # check for disruptive mutations in wciG to resolve 33G/33H
+        elif "33G" in self.best_serotype or "33H" in self.best_serotype:
+            wciG = False
+            with open(f"{self.prefix}/assembled_genes.fa") as handle:
+                for record in SeqIO.parse(handle, "fasta"):
+                    wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                    if wciG_completeness[0] and not wciG_completeness[1]:
+                        wciG = True
+            if wciG:
+                self.sero = "33G"
+            else:
+                self.sero = "33H"
         else:
             report_file = os.path.join(self.prefix,'report.tsv')
             serogroup = self.cluster_serotype_dict[cluster][0]
