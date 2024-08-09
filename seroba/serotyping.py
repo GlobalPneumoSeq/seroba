@@ -332,7 +332,25 @@ class Serotyping:
                     #        serotype_count[serotype]+=-0.5
 
         return serotype_count,relevant_genetic_elements
-        
+    
+    @staticmethod
+    def check_sequence_completeness(
+        sequence):
+        mutation = False
+        stop_codons = {"taa", "tga", "tag"}
+        complete = True
+        if len(sequence) % 3 != 0:
+            complete = False
+        i = 0
+        # -6 so you don't check the last codon (which should be a stop codon)
+        while i <= len(sequence) - 6 and complete:
+            codon = sequence[i : i + 3]
+            if codon in stop_codons:
+                mutation = True
+                complete = False
+            i += 3
+        return complete, mutation
+
     @staticmethod
     def _find_serotype(assemblie_file,serogroup_fasta, serogroup_dict,serotypes,report_file,prefix):
         sub_dict = {'genes':[],'pseudo':[],'allele':[],'snps':[]}
@@ -555,6 +573,25 @@ class Serotyping:
             report_file  = os.path.join(self.prefix,'report.tsv')
             assemblie_file = os.path.join(self.prefix,'assembled_genes.fa')
             self.sero = Serotyping.serotype19F(assemblie_file, report_file)
+        elif "20" in self.best_serotype:
+            wciG = False
+            whaF = False
+            with open(f"{self.prefix}/assembled_genes.fa") as handle:
+                        for record in SeqIO.parse(handle, "fasta"):
+                            if record.seq.startswith("ATGAGAAAAAATCG"):
+                                wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                                if wciG_completeness[0] and not wciG_completeness[1]:
+                                    wciG = True
+                            if record.seq.startswith("ATGATACATAAAAT"):
+                                whaF_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                                if whaF_completeness[0] and not whaF_completeness[1]:
+                                    whaF = True
+            if whaF and not wciG:
+                self.sero = "20C"
+            elif whaF:
+                self.sero = "20B"
+            elif not whaF:
+                self.sero = "20A"
         else:
             report_file = os.path.join(self.prefix,'report.tsv')
             serogroup = self.cluster_serotype_dict[cluster][0]
@@ -604,32 +641,13 @@ class Serotyping:
                 if '24B' in self.sero or '24F' in self.sero or '24C' in self.sero:
                     fobj.write(header)
                     fobj.write(f"{self.prefix},24B/24C/24F,24B/24C/24F,{flag}\n")
-                elif '20' in self.sero:
-                    # detect truncated wciG and whaF genes to resolve serogroup 20 serotypes
-                    fobj.write(header)
-                    wciG = False
-                    whaF = False
-                    genetic_variant = self.sero
-                    with open(f"{self.prefix}/assembled_genes.fa") as handle:
-                        for record in SeqIO.parse(handle, "fasta"):
-                            if record.seq.startswith("ATGAGAAAAAATCG") and record.seq.endswith("GTCAAATTATAA"):
-                                wciG = True
-                            if record.seq.startswith("ATGATACATAAAAT") and record.seq.endswith("AGAAAGTTATAA"):
-                                whaF = True
-                    if whaF and not wciG:
-                        self.sero = "20C"
-                        fobj.write(f"{self.prefix},{self.sero},{self.sero},{flag}\n")
-                    elif whaF:
-                        self.sero = "20B"
-                        fobj.write(f"{self.prefix},{self.sero},{self.sero},{flag}\n")
-                    elif not whaF:
-                        self.sero = "20A"
-                        genetic_variant = "20A-I"
-                        fobj.write(f"{self.prefix},{self.sero},{genetic_variant},{flag}\n")
                 elif 'possible' in self.sero:
                     # catch uncertain serogroup 6 calls
                     fobj.write(header)
                     fobj.write(f"{self.prefix},Serogroup 6,{self.sero},{flag}\n")
+                elif "20A" in self.sero:
+                    fobj.write(header)
+                    fobj.write(f"{self.prefix},20A,20A-I,{flag}\n")
                 else:
                     fobj.write(header)
                     serotype = self.check_genetic_variant(self.sero)
