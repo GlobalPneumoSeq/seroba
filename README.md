@@ -45,42 +45,6 @@ python3 setup.py test
 ### Setting up the database
 You can use the CTV of PneumoCaT by using seroba  getPneumocat. It is also possible to add new serotypes by adding the references sequence to the "references.fasta" file in the database folder. Out of the information provided by this database a TSV file is created while using seroba createDBs. You can easily put in additional genetic information for any of these serotypes in the given format.
 
-Since SeroBA v0.1.3 an updated variant of the CTV from PneumoCaT is provided in the SeroBA package. This includes the serotypes 6E, 6F, 11E, 10X, 39X and two NT references. It is not necessary to use SeroBA getPneumocat.
-For SeroBA version 0.1.3 and greater, download the database provided within this git repository:
-
-__For git users__  
-Clone the git repository:
-```
-git clone https://github.com/sanger-pathogens/seroba.git
-```
-
-Copy the database to a directory:
-```
-cp -r seroba/database my_directory
-```
-
-Delete the git repository to clean up your system:
-```
-rm -r seroba
-```
-
-__For svn users__  
-Install svn. Checkout the database directory:
-```
-svn checkout "https://github.com/sanger-pathogens/seroba/trunk/database"
-```
-Continue with Step 2.
-
-__For SeroBA version 0.1.2 and smaller:__
-```
-usage: seroba  getPneumocat <database dir>
-
-Downloads PneumoCat and build an tsv formatted meta data file out of it
-
-positional arguments:
-  database dir      directory to store the PneumoCats capsular type variant (CTV) database
-```
-
 ### Creates a Database for kmc and ariba
 ```
 usage: seroba createDBs  <database dir> <kmer size>
@@ -120,7 +84,7 @@ positional arguments:
 ```   
 
 ## Output
-In the folder 'prefix' you will find a pred.tsv including your predicted serotype as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of "seroba summary" a csv file called summary.csv is created that consists of four columns (Sample,Serotype,Genetic_Variant,Contamination_Status). Serotypes that do not match any reference are marked as "untypable"(v0.1.3).
+In the folder 'prefix' you will find a pred.csv including your predicted serotype and genetic variant as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of "seroba summary" a csv file called summary.csv is created that consists of four columns (Sample,Serotype,Genetic_Variant,Contamination_Status). Serotypes that do not match any reference are marked as "untypable"(v0.1.3).
 
 __detailed_serogroup_info example:__
 ```
