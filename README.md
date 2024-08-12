@@ -80,7 +80,7 @@ positional arguments:
 ```   
 
 ## Output
-In the folder 'prefix' you will find a file named `pred.csv` including your predicted serotype and genetic variant as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of `seroba summary` a csv file called summary.csv is created that consists of four columns (Sample,Serotype,Genetic_Variant,Contamination_Status). Serotypes that do not match any reference are marked as "untypable".
+In the folder 'prefix' you will find a file named `pred.csv` including your predicted serotype and genetic variant as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of `seroba summary` a csv file called `summary.csv` is created that consists of four columns (Sample,Serotype,Genetic_Variant,Contamination_Status). Serotypes that do not match any reference are marked as "untypable".
 
 __detailed_serogroup_info example:__
 ```
