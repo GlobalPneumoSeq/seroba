@@ -661,7 +661,7 @@ class Serotyping:
                     fobj.write(f"{self.prefix},Serogroup 6,{self.sero},{flag}\n")
                 elif "20A" in self.sero:
                     fobj.write(header)
-                    fobj.write(f"{self.prefix},20A,20A-I,{flag}\n")
+                    fobj.write(f"{self.prefix},20A,20A(20A-I),{flag}\n")
                 else:
                     fobj.write(header)
                     serotype = self.check_genetic_variant(self.sero)
