@@ -151,7 +151,7 @@ class TestSerotyping(unittest.TestCase):
             'NT' : ['NT'],
             'cluster_1' : ['07A','07F'],
             'cluster_2':['10A','10B'],
-            'cluster_3':['15A','15B','15C','15F']
+            'cluster_3':['15A','15B', '15D', '15C','15F']
                      }
         s.best_serotype = '15C'
         s.cluster_count = {
@@ -283,7 +283,7 @@ class TestSerotyping(unittest.TestCase):
             'cluster' : ['06A','06B','06C','06D','06E'],
             'NT' : ['NT'],
             'cluster_1' : ['07A','07F'],
-            'cluster_2':['33A','33F','37']        }
+            'cluster_2':['33A', '33E', '33F','37']        }
         s.best_serotype = '33F'
         s.cluster_count = {
         'cluster': 5,

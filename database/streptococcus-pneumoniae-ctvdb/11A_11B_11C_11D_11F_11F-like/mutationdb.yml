@@ -1,0 +1,12 @@
+{genes: {11A: {wcjE: 1, wcwC_11A: 1, wcwR: 0, wcrL_11F_like: 0}, 11B: {wcjE: 0, wcwC_11A: 0, wcwR: 1},
+    11C: {wcjE: 0, wcwC_11A: 0, wcwR: 1}, 11D: {wcjE: 1, wcwC_11A: 1, wcwR: 0}, 11F: {
+      wcjE: 1, wcwC_11F: 1, wcwR: 0}, 11F_like: {wcjE: 1, wcwC_11F_like: 1, wcwR: 0, wcrL_11F_like: 1}},
+    pseudo: {11A: {gct: [0, [!!python/tuple [130,
+            131], A]]}, 11B: {gct: [1, [!!python/tuple [130, 131], '-']]}, 11C: {
+      gct: [0, [!!python/tuple [130, 131], A]]}, 11D: {gct: [0, [!!python/tuple [
+            130, 131], A]]}, 11F: {gct: [1, [!!python/tuple [130, 131], '-']]},
+            11F_like: {gct: [0, [!!python/tuple [130, 131], 'A']]}},
+    snps: {
+      wcrL: {49: {11A: [TCA, 16, S], 11D: [TCA, 16, S], 11F: [TCA, 16, S], 11F_like: [CCA, 16, P]},
+             334: {11A: [AAT, 111, N], 11D: [AGT, 111, S], 11F: [GCT, 111, A], 11F_like: [AAT, 111, N],
+             493: {11A: [GAC, 164, D], 11D: [GAC, 164, D], 11F: [GAC, 164, D], 11F_like: [AAT, 164, N]}}}}}

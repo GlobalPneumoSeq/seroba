@@ -1,9 +1,11 @@
 from seroba import ref_db_creator, kmc
 import sys
 from collections import Counter
+from csv import DictReader
 import csv
 import yaml
 import os
+import re
 import pymummer
 import xml.etree.ElementTree as ET
 import tempfile
@@ -24,6 +26,7 @@ class Serotyping:
         self.fw_read = fw_reads
         self.bw_read = bw_reads
         self.meta_data = os.path.join(databases,'meta.tsv')
+        self.genetic_variant_data = os.path.join(databases,'genetic_variants.csv')
         self.prefix = prefix
         self.kmer_size = open(os.path.join(databases,'kmer_size.txt'),'r').readline().strip()
         self.kmer_db = os.path.join(databases,'kmer_db')
@@ -100,7 +103,58 @@ class Serotyping:
         shutil.copyfile(os.path.join(self.prefix,'ref','assemblies.fa.gz'),os.path.join(self.prefix,'assemblies.fa.gz'))
         os.system('gzip -d '+os.path.join(self.prefix,'assemblies.fa.gz'))
 
+    @staticmethod
+    def get_snps_from_assembly(row_dict, record, position_list, gene):
+        # get snps from specific positions of a specific gene from an ARIBA assembly file
+        snp_list = []
+        for seq_id in row_dict:
+                if gene in seq_id:
+                    for i in range(0, len(position_list)):
+                        for seq in record:
+                            if row_dict[seq_id] in seq:
+                                snp = record[seq].seq[position_list[i]]
+                                snp_list.append(snp)
+        return snp_list
+                        
+    @staticmethod
+    def serotype19F(assemblie_file, report_file):
+        """
+        Customised subtyping function for 19F subtypes.
+        Too challenging for SeroBA to determine these subtypes using the CTVdb alone
+        Subtypes will only be called if all mutations/alleles in the subtype are present
+        """ 
+        serotype = "19F"
+        with open(report_file) as fobj:
+            tsvin = csv.reader(fobj, delimiter='\t')
+            next(tsvin, None)
+            row_dict = {}
+            for row in tsvin:
+                if row[0] not in row_dict:
+                    row_dict[row[0]] = row[10]
 
+        record = SeqIO.to_dict(SeqIO.parse(assemblie_file, "fasta"))
+
+        # detect subtypes 19FII and 19FIV by presence of specific alleles
+        if "rmlB_6" in row_dict and "wchA_4" in row_dict and "wzg_2" in row_dict:
+            serotype = "19F-IV"
+        elif "rmlB_5" in row_dict and "wchA_4" in row_dict and "wzg_1" in row_dict:
+            serotype = "19F-II"
+
+        # detect subtypes 19FI and 19FIII by presence of specific mutations
+        else:
+            # snps in wze for 19F-I
+            wze_snps = Serotyping.get_snps_from_assembly(row_dict, record, [135, 207, 477], "wze")
+            if wze_snps == ['A', 'A', 'G']:
+                serotype = "19F-I"
+
+            # snps for 19F-III
+            wzx_snps = Serotyping.get_snps_from_assembly(row_dict, record, [1112, 1134], "wzx")
+            wchO_snp = Serotyping.get_snps_from_assembly(row_dict, record, [67], "wchO")
+            wzy_snp = Serotyping.get_snps_from_assembly(row_dict, record, [213], "wzy")
+            if wzx_snps == ['G','C'] and wchO_snp == ['T'] and wzy_snp == ['C'] and serotype != "19F-I":
+                serotype = "19F-III"
+
+        return serotype
 
     @staticmethod
     def serotype6(assemblie_file,report_file):
@@ -159,7 +213,36 @@ class Serotyping:
                                 elif snp =='A':
                                     serotype = '06D'
 
+        if serotype == "06A":
+            # divergent wzg allele only present in 06BI and 06AIII as well as rmlA allele
+            if "wzg_06BI" in row_dict and "rmlA_4" in row_dict:
+                serotype = "06A-III"
+            # different rml alleles determine the subtypes
+            elif "rmlB_4" in row_dict and "rmlA_3" in row_dict and "wzg_06AI" in row_dict:
+                serotype = "06A-I"
+            elif "rmlC_2" in row_dict and "rmlA_2" in row_dict and "wzy_06AII" in row_dict:
+                serotype = "06A-VI"
+            elif "rmlA_2" in row_dict and "rmlC_2" not in row_dict and "wzy_06AII" in row_dict and "wzg_06AII" in row_dict:
+                serotype = "06A-II"
+            elif "rmlA_2" in row_dict and "rmlC_2" in row_dict and "wzy_06AII" in row_dict and "wzg_06AII" in row_dict:
+                serotype = "06A-VI"
+            elif "rmlA_5" in row_dict and "wzg_06AI" in row_dict:
+                serotype = "06A-V"
+            else:
+                for seq_id in row_dict:
+                    if seq_id == "wze":
+                        for seq in record:
+                            if row_dict[seq_id] in seq:
+                                snp = (record[seq].seq[487])
+                                if snp == 'T':
+                                    serotype = "06A-IV"
 
+        # different wzg and rml alleles can determine 6B subgroups
+        if serotype == "06B":
+            if "wzg_06BI" in row_dict and "rmlA_4" in row_dict and "rmlB_3" in row_dict:
+                serotype = "06B-I"
+            elif "wzg_06BII" in row_dict and "rmlA_5" in row_dict and "rmlB_3" in row_dict:
+                serotype = "06B-II"
 
         return serotype
 
@@ -249,6 +332,25 @@ class Serotyping:
                     #        serotype_count[serotype]+=-0.5
 
         return serotype_count,relevant_genetic_elements
+    
+    @staticmethod
+    def check_sequence_completeness(
+        sequence):
+        # check a gene is in frame and contains no premature stop codons
+        mutation = False
+        stop_codons = {"taa", "tga", "tag"}
+        complete = True
+        if len(sequence) % 3 != 0:
+            complete = False
+        i = 0
+        # -6 so you don't check the last codon (which should be a stop codon)
+        while i <= len(sequence) - 6 and complete:
+            codon = sequence[i : i + 3]
+            if codon in stop_codons:
+                mutation = True
+                complete = False
+            i += 3
+        return complete, mutation
 
     @staticmethod
     def _find_serotype(assemblie_file,serogroup_fasta, serogroup_dict,serotypes,report_file,prefix):
@@ -288,7 +390,6 @@ class Serotyping:
             for serotype in serotypes:
                 if serotype in gene and gene_present_dict[gene] == 1:
                     serotype_count[serotype]+=-1
-
         variant_dict = Serotyping._get_nucmer_snps(variants, list(gene_present_dict.keys()) )
         mixed_serotype = None
         if "genes" in allel_snp:
@@ -350,7 +451,6 @@ class Serotyping:
                 else:
                     serotype_count[serotype]+=-1
         print(serotype_count)
-
         if "allele" in allel_snp:
             for al in allel_snp['allele']:
                 h = [[x.ref_name, x.ref_start, x.ref_end, x.ref_length,x.qry_length,x.ref_length,x.percent_identity] for x in pymummer.coords_file.reader(os.path.join(tmpdir,'coords.txt'))]
@@ -389,11 +489,23 @@ class Serotyping:
         min_keys = [k for k in serotype_count if serotype_count[k] == min_value]
         serotype = ''
         print(min_keys)
+        # discrepancies with 37, if tts gene is present, call 37
+        with open(report_file) as f:
+            for line in f:
+                if "tts" in line:
+                    serotype = "37"
+                    return serotype, relevant_genetic_elements
         if mixed_serotype is not None and any(key not in mixed_serotype for key in min_keys):
             mixed_serotype = None
         print(serotype_count)
         if  mixed_serotype is not None :
             serotype = mixed_serotype
+        # sometimes not possible to differentiate 19AI and 19AII
+        elif min_keys == ['19AI', '19AII']:
+            serotype = "19A-I/19A-II"
+        # if the truncated wciE gene is present, call serotype 33E
+        elif len(min_keys) > 1 and "33E" in min_keys and serotype_count["33E"] < 0:
+            serotype = "33E"
         elif len(min_keys) > 1:
             with open(report_file) as fobj:
                 tsvin = csv.reader(fobj, delimiter='\t')
@@ -401,17 +513,26 @@ class Serotyping:
                 first = next(tsvin)
                 serotype = first[0]
 
-        elif  min(serotype_count, key=serotype_count.get) =='33A':
-                with open(report_file) as fobj:
-                    tsvin = csv.reader(fobj, delimiter='\t')
-                    next(tsvin,None)
-                    first = next(tsvin)
-                    if first[0] == min(serotype_count, key=serotype_count.get):
-                        serotype = min(serotype_count, key=serotype_count.get)
-                    else:
-                        serotype = first[0]
+        elif min(serotype_count, key=serotype_count.get) == '33A':
+            with open(report_file) as fobj:
+                tsvin = csv.reader(fobj, delimiter='\t')
+                next(tsvin, None)
+                first = next(tsvin)
+                if first[0] == min(serotype_count, key=serotype_count.get):
+                    serotype = min(serotype_count, key=serotype_count.get)
+                elif serotype_count["33E"] == 0 and first[0] != min(serotype_count, key=serotype_count.get):
+                    serotype = "33F"
+                else:
+                    serotype = first[0]
         else :
             serotype =  min(serotype_count, key=serotype_count.get)
+        # add dashes to 19A/F subtypes
+        if serotype != "19AF" and "19A" in serotype or "19F" in serotype:
+            sero = re.split(r'(A|F)', serotype)
+            sero = ' '.join(sero).split()
+            if len(sero) == 3:
+                serotype = f"{sero[0]}{sero[1]}-{sero[2]}"
+        
         return serotype , relevant_genetic_elements
 
 
@@ -430,6 +551,15 @@ class Serotyping:
                         for entry in relevant_genetic_elements[serotype][genetic_var]:
                             wobj.write(serotype+'\t'+genetic_var+'\t'+str(entry)+'\n')
 
+    def check_genetic_variant(self, serotype):
+        # lookup whether the call is a genetic variant, if so match it to the appropriate serotype
+        with open(self.genetic_variant_data) as genetic_variants:
+            reader = DictReader(genetic_variants)
+            for row in reader:
+                if serotype == row['genetic_variant']:
+                    serotype = row['serotype']
+            return serotype
+
     def _prediction(self,assemblie_file,cluster):
         sero = ''
 
@@ -440,6 +570,42 @@ class Serotyping:
             report_file  = os.path.join(self.prefix,'report.tsv')
             assemblie_file = os.path.join(self.prefix,'assembled_genes.fa')
             self.sero = Serotyping.serotype6(assemblie_file, report_file)
+        elif "19F" in self.best_serotype:
+            report_file  = os.path.join(self.prefix,'report.tsv')
+            assemblie_file = os.path.join(self.prefix,'assembled_genes.fa')
+            self.sero = Serotyping.serotype19F(assemblie_file, report_file)
+        # check for disruptive mutations in whaF and wciG to resolve serogroup 20 serotypes
+        elif "20" in self.best_serotype:
+            wciG = False
+            whaF = False
+            with open(f"{self.prefix}/assembled_genes.fa") as handle:
+                for record in SeqIO.parse(handle, "fasta"):
+                    if record.seq.startswith("ATGAGAAAAAATCG"):
+                        wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                        if wciG_completeness[0] and not wciG_completeness[1]:
+                            wciG = True
+                    if record.seq.startswith("ATGATACATAAAAT"):
+                        whaF_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                        if whaF_completeness[0] and not whaF_completeness[1]:
+                            whaF = True
+            if whaF and not wciG:
+                self.sero = "20C"
+            elif whaF:
+                self.sero = "20B"
+            elif not whaF:
+                self.sero = "20A"
+        # check for disruptive mutations in wciG to resolve 33G/33H
+        elif "33G" in self.best_serotype or "33H" in self.best_serotype:
+            wciG = False
+            with open(f"{self.prefix}/assembled_genes.fa") as handle:
+                for record in SeqIO.parse(handle, "fasta"):
+                    wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                    if wciG_completeness[0] and not wciG_completeness[1]:
+                        wciG = True
+            if wciG:
+                self.sero = "33G"
+            else:
+                self.sero = "33H"
         else:
             report_file = os.path.join(self.prefix,'report.tsv')
             serogroup = self.cluster_serotype_dict[cluster][0]
@@ -447,11 +613,11 @@ class Serotyping:
             self.sero, self.imp = Serotyping._find_serotype(assemblie_file,serogroup_fasta,self.meta_data_dict[serogroup],\
                 self.cluster_serotype_dict[cluster],report_file,self.prefix)
             self._print_detailed_output(report_file,self.imp,self.sero)
-
+        
     def _clean(self):
         files = os.listdir(self.prefix)
         for f in files:
-            if 'pred.tsv' != f and 'detailed_serogroup_info.txt' != f :
+            if 'pred.csv' != f and 'detailed_serogroup_info.txt' != f :
                 path = os.path.join(self.prefix,f)
                 os.remove(path)
 
@@ -462,14 +628,17 @@ class Serotyping:
         assemblie_file = self.prefix+'/assemblies.fa'
         self._run_kmc()
         print(self.best_serotype)
+        header = "Sample,Serotype,Genetic_Variant,Contamination_Status\n"
         if self.best_serotype =='coverage too low':
            os.system('mkdir '+self.prefix)
-           with open(self.prefix+'/pred.tsv', 'a') as fobj:
-               fobj.write(self.prefix+'\t'+self.best_serotype+'\n')
+           with open(self.prefix+'/pred.csv', 'a') as fobj:
+               fobj.write(header)
+               fobj.write(f"{self.prefix},{self.best_serotype},{self.best_serotype},NA\n")
         elif self.best_serotype == 'NT':
             os.system('mkdir '+self.prefix)
-            with open(self.prefix+'/pred.tsv', 'a') as fobj:
-                fobj.write(self.prefix+'\tuntypable\n')
+            with open(self.prefix+'/pred.csv', 'a') as fobj:
+                fobj.write(header)
+                fobj.write(f"{self.prefix},untypable,untypable,NA\n")
         else:
             cluster = self.serotype_cluster_dict[self.best_serotype]
             self._run_ariba_on_cluster(cluster)
@@ -479,12 +648,30 @@ class Serotyping:
             with open (report_file,'r') as report:
                 for line in report:
                     if 'HET' in line:
-                        flag = 'contamination'
-            with open(self.prefix+'/pred.tsv', 'a') as fobj:
-                if '24' in self.sero:
-                    fobj.write(self.prefix+'\tserogroup 24\t'+flag+'\n')
+                        flag = 'Contaminated'
+                    else:
+                        flag = 'Pure'
+            with open(self.prefix+'/pred.csv', 'a') as fobj:
+                if '24B' in self.sero or '24F' in self.sero or '24C' in self.sero:
+                    fobj.write(header)
+                    fobj.write(f"{self.prefix},24B/24C/24F,24B/24C/24F,{flag}\n")
+                elif 'possible' in self.sero:
+                    # catch uncertain serogroup 6 calls
+                    fobj.write(header)
+                    fobj.write(f"{self.prefix},Serogroup 6,{self.sero},{flag}\n")
+                elif "20A" in self.sero:
+                    fobj.write(header)
+                    fobj.write(f"{self.prefix},20A,20A(20A-I),{flag}\n")
                 else:
-                    fobj.write(self.prefix+'\t'+self.sero+'\t'+flag+'\n')
+                    fobj.write(header)
+                    serotype = self.check_genetic_variant(self.sero)
+                    if serotype != self.sero and "6E" not in self.sero:
+                        fobj.write(f"{self.prefix},{serotype},{serotype}({self.sero}),{flag}\n")
+                    elif serotype != self.sero and "6E" in self.sero:
+                        fobj.write(f"{self.prefix},{serotype},{self.sero},{flag}\n")
+                    else:
+                        fobj.write(f"{self.prefix},{serotype},{self.sero},{flag}\n")
+
             shutil.rmtree(os.path.join(self.prefix,'ref'))
         if os.path.isdir(os.path.join(self.prefix,'genes')):
             shutil.rmtree(os.path.join(self.prefix,'genes'))

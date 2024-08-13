@@ -1,0 +1,54 @@
+allele:
+  rmlB: {19F: rmlB-5, 19FI: rmlB-5, 19FII: rmlB-5, 19FIII: rmlB-5, 19FIV: rmlB-6}
+  wchA: {19F: wchA-3, 19FI: wchA-3, 19FII: wchA-4, 19FIII: wchA-3, 19FIV: wchA-4}
+  wzg: {19F: wzg-1, 19FI: wzg-1, 19FII: wzg-1, 19FIII: wzg-1, 19FIV: wzg-2}
+snps:
+  rmlD:
+    94:
+      19F: [GCT, 31, A]
+      19FI: [GCT, 31, A]
+      19FII: [GCT, 31, A]
+      19FIII: [GCT, 31, A]
+      19FIV: [ACT, 31, T]
+    766:
+      19F: [AGC, 255, S]
+      19FI: [AGC, 255, S]
+      19FII: [AAC, 255, N]
+      19FIII: [AGC, 255, S]
+      19FIV: [AGC, 255, S]
+  wchO:
+    67:
+      19F: [AGT, 22, S]
+      19FI: [ATT, 22, I]
+      19FII: [AGT, 22, S]
+      19FIII: [ATT, 22, I]
+      19FIV: [AGT, 22, S]
+  wze:
+    136:
+      19F: [GAG, 45, E]
+      19FI: [AGG, 45, R]
+      19FII: [GGG, 45, G]
+      19FIII: [GAG, 45, E]
+      19FIV: [GGG, 45, G]
+    208:
+      19F: [ATC, 69, I]
+      19FI: [ATC, 69, I]
+      19FII: [ATC, 69, I]
+      19FIII: [ATC, 69, I]
+      19FIV: [CTC, 69, L]
+    478:
+      19F: [ATT, 159, I]
+      19FI: [GTT, 159, V]
+      19FII: [ATT, 159, I]
+      19FIII: [ATT, 159, I]
+      19FIV: [ATT, 159, I]
+  wzx:
+    1111:
+      19F: [ATA, 370, I]
+      19FI: [ATG, 370, M]
+      19FII: [ATA, 370, I]
+      19FIII: [ATG, 370, M]
+      19FIV: [ATA, 370, I]
+
+
+

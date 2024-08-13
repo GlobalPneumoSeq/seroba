@@ -1,0 +1,5 @@
+{allele: {wzd: {15A: wzd-1, 15B: wzd-2, 15C: wzd-2, 15D: wzd-1}}, genes: {15A: {glf: 0, rmlB: 0,
+      rmlD: 0, wciZ: 0, wcjE: 0, wzy-15A: 1}, 15B: {glf: 0, rmlB: 0, rmlD: 0, wcjE: 0}, 15C: {glf: 0, rmlB: 0,
+      rmlD: 0, wcjE: 0}, 15D: {glf: 0, rmlB: 0, rmlD: 0, wcjE: 0, wzy-15D: 1, wciZ: 1},
+      15F: {glf: 1, rmlB: 1, rmlD: 1, wcjE: 1, wciZ: 1}}, pseudo: {15B: {
+      wciZ: [0, [[412, 417]]]}, 15C: {wciZ: [1, [[412, 417]]]}}}}

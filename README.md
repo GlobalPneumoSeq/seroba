@@ -1,15 +1,11 @@
 # SeroBA
-This is a fork of [Wellcome Sanger Institute Pathogen Informatics' SeroBA](https://github.com/sanger-pathogens/seroba). As the original SeroBA is no longer maintained, this fork mainly aims to integrate bug fixes and database updates to provide a stable, updated, and containerised SeroBA for the [GPS Pipeline](https://github.com/sanger-bentley-group/gps-pipeline/) (a Nextflow Pipeline for processing *Streptococcus pneumoniae* sequencing raw reads). 
-
-## Warning
-We do not provide any support for the use or interpretation of this software, and it is provided on an "as-is" basis.
+This is a fork of [Wellcome Sanger Institute Pathogen Informatics' SeroBA](https://github.com/sanger-pathogens/seroba). As the original SeroBA is no longer maintained, this fork mainly aims to integrate bug fixes and database updates to provide a stable, updated, and containerised version of SeroBA. 
 
 ## About 
-SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS reads for given references. You can use SeroBA to download references from [PneumoCaT](https://github.com/phe-bioinformatics/PneumoCaT) to do identify the capsular type of Streptococcus pneumoniae.
+SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS reads for given references.
 
 ## Contents
 - [SeroBA](#seroba)
-  - [Warning](#warning)
   - [About](#about)
   - [Contents](#contents)
   - [Introduction](#introduction)
@@ -43,43 +39,7 @@ python3 setup.py test
 ```
 
 ### Setting up the database
-You can use the CTV of PneumoCaT by using seroba  getPneumocat. It is also possible to add new serotypes by adding the references sequence to the "references.fasta" file in the database folder. Out of the information provided by this database a TSV file is created while using seroba createDBs. You can easily put in additional genetic information for any of these serotypes in the given format.
-
-Since SeroBA v0.1.3 an updated variant of the CTV from PneumoCaT is provided in the SeroBA package. This includes the serotypes 6E, 6F, 11E, 10X, 39X and two NT references. It is not necessary to use SeroBA getPneumocat.
-For SeroBA version 0.1.3 and greater, download the database provided within this git repository:
-
-__For git users__  
-Clone the git repository:
-```
-git clone https://github.com/sanger-pathogens/seroba.git
-```
-
-Copy the database to a directory:
-```
-cp -r seroba/database my_directory
-```
-
-Delete the git repository to clean up your system:
-```
-rm -r seroba
-```
-
-__For svn users__  
-Install svn. Checkout the database directory:
-```
-svn checkout "https://github.com/sanger-pathogens/seroba/trunk/database"
-```
-Continue with Step 2.
-
-__For SeroBA version 0.1.2 and smaller:__
-```
-usage: seroba  getPneumocat <database dir>
-
-Downloads PneumoCat and build an tsv formatted meta data file out of it
-
-positional arguments:
-  database dir      directory to store the PneumoCats capsular type variant (CTV) database
-```
+SeroBA is packaged with a capsular variant database (CTVdb) which contains references and genetic information for 108 serotypes. It is also possible to add new serotypes by adding the references sequence to the "references.fasta" file in the database folder. Out of the information provided by this database a TSV file is created while using seroba createDBs. You can easily put in additional genetic information for any of these serotypes in the given format.
 
 ### Creates a Database for kmc and ariba
 ```
@@ -120,7 +80,7 @@ positional arguments:
 ```   
 
 ## Output
-In the folder 'prefix' you will find a pred.tsv including your predicted serotype as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of "seroba summary" a tsv file called summary.tsv is created that consists of three columns (sample Id , serotype, comments). Serotypes that do not match any reference are marked as "untypable"(v0.1.3).
+In the folder 'prefix' you will find a file named `pred.csv` including your predicted serotype and genetic variant as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of `seroba summary` a csv file called `summary.csv` is created that consists of four columns (Sample,Serotype,Genetic_Variant,Contamination_Status). Serotypes that do not match any reference are marked as "untypable".
 
 __detailed_serogroup_info example:__
 ```
@@ -146,7 +106,7 @@ be a hint for a mosaic serotpye.
 	* Possible solution: perform a blast search on the whole genome assembly
 
 * Case 3:
-	* The third column in the summary.tsv indicates "contamination". This means that
+	* The fourth column in the summary.csv indicates "contamination". This means that
     at least one heterozygous SNP was detected in the read data with at least
     10% of the mapped reads at the specific position supporting the SNP.
 	* Possible solution: please check the quality of your data and have a look

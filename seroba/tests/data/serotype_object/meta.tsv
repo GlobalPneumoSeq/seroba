@@ -4,10 +4,20 @@
 04	04	04	1	ref
 05	05	05	1	ref
 06A	06A	06A	1	ref
+06AI	06A	06AI	1	ref
+06AII	06A	06AII	1	ref
+06AIII	06A	06AIII	1	ref
+06AIV	06A	06AIV	1	ref
+06AV	06A	06AV	1	ref
+06AVI	06A	06AVI	1	ref
 06B	06A	06B	1	ref
+06BI	06A	06BI	1	ref
+06BII	06A	06BII	1	ref
 06C	06A	06C	1	ref
 06D	06A	06D	1	ref
 06E	06A	06E	1	ref
+06F	06A	06F	1	ref
+06G	06A	06G	1	ref
 07A	07A	07A	1	ref
 07B	07B	07B	1	ref
 07C	07B	07C	1	ref
@@ -20,12 +30,15 @@
 10A	10A	10A	1	ref
 10B	10A	10B	1	ref
 10C	10C	10C	1	ref
+10D	10D	10D	1	ref
 10F	10C	10F	1	ref
 11A	11A	11A	1	ref
 11B	11A	11B	1	ref
 11C	11A	11C	1	ref
 11D	11A	11D	1	ref
 11F	11A	11F	1	ref
+11F_like	11A	11F_like	1	ref
+11E	11A	11E	1	ref
 12A	12A	12A	1	ref
 12B	12A	12B	1	ref
 12F	12A	12F	1	ref
@@ -35,6 +48,7 @@
 15B	15A	15B	1	ref
 15C	15A	15C	1	ref
 15F	15A	15F	1	ref
+15D	15A	15D	1	ref
 16A	16A	16A	1	ref
 16F	16F	16F	1	ref
 17A	17A	17A	1	ref
@@ -44,10 +58,19 @@
 18C	18A	18C	1	ref
 18F	18A	18F	1	ref
 19A	19A	19A	1	ref
+19AF	19A	19AF	1	ref
+19AI	19A	19AI	1	ref
+19AII	19A	19AII	1	ref
+19AIII	19A	19AIII	1	ref
 19B	19B	19B	1	ref
 19C	19B	19C	1	ref
 19F	19F	19F	1	ref
-20	20	20	1	ref
+19FI	19F	19FI	1	ref
+19FII	19F	19FII	1	ref
+19FIII	19F	19FIII	1	ref
+19FIV	19F	19FIV	1	ref
+20A	20A	20A	1	ref
+20B	20A	20B	1	ref
 21	21	21	1	ref
 22A	22A	22A	1	ref
 22F	22A	22F	1	ref
@@ -56,8 +79,10 @@
 23B1	23B1	23B1	1	ref
 23F	23A	23F	1	ref
 24A	24A	24A	1	ref
-24B	24B	24B	1	ref
-24F	24F	24F	1	ref
+24B	24A	24B	1	ref
+24C	24A	24C	1	ref
+24F	24A	24F	1	ref
+24F2	24F2	24F2	1	ref
 25A	25A	25A	1	ref
 25F	25A	25F	1	ref
 27	27	27	1	ref
@@ -72,12 +97,16 @@
 33C	33C	33C	1	ref
 33D	33B	33D	1	ref
 33F	33A	33F	1	ref
-34	34	34	1	ref
+33E	33A	33E	1	ref
+33G	33G	33G	1	ref
+034	034	034	1	ref
 35A	35A	35A	1	ref
 35B	35B	35B	1	ref
+35D	35B	35D	1	ref
 35C	35A	35C	1	ref
 35F	35F	35F	1	ref
-36	36	36	1	ref
+36A	36A	36A	1	ref
+36B	36B	36B	1	ref
 37	33A	37	1	ref
 38	25A	38	1	ref
 39	39	39	1	ref
@@ -92,14 +121,22 @@
 47A	47A	47A	1	ref
 47F	47F	47F	1	ref
 48	48	48	1	ref
+HG264	19B	19B	0	genes	0
+HG264	19B	19C	0	genes	1
 gct	11A	11A	1	pseudo	0
+gct	11A	11E	1	pseudo	0
 gct	11A	11B	1	pseudo	1
 gct	11A	11C	1	pseudo	0
 gct	11A	11D	1	pseudo	0
 gct	11A	11F	1	pseudo	1
+gct	11A	11F_like	1	pseudo	0
+wcjE	11A	11E	1	pseudo	1
+wcjE	11A	11A	1	pseudo	0
+wcjE	11A	11F_like	1	pseudo	0
 glf	15A	15A	0	genes	0
 glf	15A	15B	0	genes	0
 glf	15A	15C	0	genes	0
+glf	15A	15D	0	genes	0
 glf	15A	15F	0	genes	1
 glf	18A	18A	0	genes	0
 glf	18A	18B	0	genes	1
@@ -123,26 +160,86 @@ mnp1_42	35A	42	0	snps	456	GAC
 mnp1_42	35A	42	0	snps	540	GCC
 mnp1_42	35A	42	0	snps	564	AAT
 mnp1_42	35A	42	0	snps	594	TAT
+rbsF	24A	24A	0	genes	0
+rbsF	24A	24B	0	genes	1
+rbsF	24A	24C	0	genes	1
+rbsF	24A	24F	0	genes	1
+rmlA-1	06A	06A	0	allele
+rmlA-1	06A	06AIV	0	allele
+rmlA-2	06A	06AII	0	allele
+rmlA-2	06A	06AVI	0	allele
+rmlA-3	06A	06AI	0	allele
+rmlA-4	06A	06AIII	0	allele
+rmlA-5	06A	06AV	0	allele
+rmlB-3	06A	06A	0	allele
+rmlB-4	06A	06AI	0	allele
+rmlB-1	19A	19A	0	allele
+rmlB-1	19A	19AIII	0	allele
+rmlB-1	19A	19AF	0	allele
+rmlB-2	19A	19AI	0	allele
+rmlB-2	19A	19AII	0	allele
+rmlB	15A	15A	0	genes	0
+rmlB	15A	15B	0	genes	0
+rmlB	15A	15C	0	genes	0
+rmlB	15A	15D	0	genes	0
+rmlB	15A	15F	0	genes	1
+rmlC-1	06A	06A	0	allele
+rmlC-2	06A	06AVI	0	allele
+rmlD	15A	15A	0	genes	0
+rmlD	15A	15B	0	genes	0
+rmlD	15A	15C	0	genes	0
+rmlD	15A	15D	0	genes	0
+rmlD	15A	15F	0	genes	1
+rmlD-1	19A	19A	0	allele
+rmlD-1	19A	19AIII	0	allele
+rmlD-1	19A	19AF	0	allele
+rmlD-2	19A	19AI	0	allele
+rmlD-2	19A	19AII	0	allele
+rmlD_19F	19F	19F	0	snps	94	GCT
+rmlD_19F	19F	19F	0	snps	766	AGC
+rmlD_19FI	19F	19FI	0	snps	94	GCT
+rmlD_19FI	19F	19FI	0	snps	766	AGC
+rmlD_19FII	19F	19FII	0	snps	94	GCT
+rmlD_19FII	19F	19FII	0	snps	766	AAC
+rmlD_19FIII	19F	19FIII	0	snps	94	GCT
+rmlD_19FIII	19F	19FIII	0	snps	766	AGC
+rmlD_19FIV	19F	19FIV	0	snps	94	ACT
+rmlD_19FIV	19F	19FIV	0	snps	766	AGC
 tts	33A	33A	0	genes	0
+tts	33A	33E	0	genes	0
 tts	33A	33F	0	genes	0
 tts	33A	37	0	genes	1
 wchA-1	23A	23A	0	allele
 wchA-2	23A	23B	0	allele
 wchA-2	23A	23F	0	allele
+wchA-3	19F	19F	0	allele
+wchA-3	19F	19FI	0	allele
+wchA-3	19F	19FIII	0	allele
+wchA-4	19F	19FII	0	allele
+wchA-4	19F	19FIV	0	allele
+wchA_19F	19F	19F	0	snps	799	ATT
+wchA_19FI	19F	19FI	0	snps	799	GTC
+wchA_19FII	19F	19FII	0	snps	799	ATT
+wchA_19FIII	19F	19FIII	0	snps	799	ATT
+wchA_19FIV	19F	19FIV	0	snps	799	ATT
 wchA_09L	09A	09L	0	snps	504	TAT
 wchA_09L	09A	09L	0	snps	879	CCA
 wchA_09N	09A	09N	0	snps	504	TCT
 wchA_09N	09A	09N	0	snps	879	TCA
-wchL-1	15A	15A	0	allele
-wchL-2	15A	15B	0	allele
-wchL-2	15A	15C	0	allele
+wchU	19B	19B	0	genes	0
+wchU	19B	19C	0	genes	1
 wciI-1	12A	12A	0	allele
 wciI-1	12A	12B	0	allele
 wciI-1	12A	44	0	allele
 wciI-1	12A	46	0	allele
 wciI-2	12A	12F	0	allele
+wciE	33A	33A	1	pseudo	0
+wciE	33A	33E	1	pseudo	1
+wciE	33A	33F	1	pseudo	0
 wciN-1	06A	06A	0	allele
 wciN-1	06A	06B	0	allele
+wciN-1	06A	06G	0	allele
+wciN-1	06A	06F	0	allele
 wciN-1	33B	33B	0	allele
 wciN-2	06A	06C	0	allele
 wciN-2	06A	06D	0	allele
@@ -190,13 +287,21 @@ wciU_28F	28A	28F	0	snps	892	GAT
 wciU_28F	28A	28F	0	snps	895	CGA
 wciU_28F	28A	28F	0	snps	913	GCA
 wciU_28F	28A	28F	0	snps	985	ATG
+wciX	18A	18A	0	genes	0
+wciX	18A	18B	0	genes	1
 wciX	18A	18B	1	pseudo	1
 wciX	18A	18C	0	genes	1
 wciX	18A	18C	1	pseudo	0
 wciX	18A	18F	0	genes	1
 wciX	18A	18F	1	pseudo	0
+wciZ	15A	15A	0	genes	0
+wciZ	15A	15D	0	genes	1
+wciZ	15A	15F	0	genes	1
+wciZ	15A	15B	1	pseudo	0
 wciZ	15A	15B	1	pseudo	0
 wciZ	15A	15C	1	pseudo	1
+wciG	35B	35B	1	pseudo	0
+wciG	35B	35D	1	pseudo	1
 wcjA_09L	09A	09L	0	snps	414	CAT
 wcjA_09L	09A	09L	0	snps	429	GGT
 wcjA_09L	09A	09L	0	snps	528	GAT
@@ -217,7 +322,18 @@ wcjD	09A	09N	0	genes	0
 wcjD	09A	09V	0	genes	1
 wcjE	09A	09A	1	pseudo	1
 wcjE	09A	09V	1	pseudo	0
+wcjE	11A	11A	0	genes	1
+wcjE	11A	11E	0	genes	1
+wcjE	11A	11B	0	genes	0
+wcjE	11A	11C	0	genes	0
+wcjE	11A	11D	0	genes	1
 wcjE	11A	11F	0	genes	1
+wcjE	11A	11F_like	0	genes	1
+wcjE	15A	15A	0	genes	0
+wcjE	15A	15B	0	genes	0
+wcjE	15A	15C	0	genes	0
+wcjE	15A	15D	0	genes	0
+wcjE	15A	15F	0	genes	1
 wcjE	33A	33A	1	pseudo	0
 wcjE	33A	33F	1	pseudo	1
 wcrC-1	10A	10A	0	allele
@@ -230,17 +346,33 @@ wcrI_42	35A	42	0	snps	453	CGG
 wcrK	35A	35A	1	pseudo	1
 wcrK	35A	35C	1	pseudo	0
 wcrK	35A	42	1	pseudo	0
+wcrL_11A	11A	11A	0	snps	49	TCA
+wcrL_11A	11A	11A	0	snps	493	GAC
 wcrL_11A	11A	11A	0	snps	334	AAT
+wcrL_11A	11A	11E	0	snps	334	AAT
+wcrL_11D	11A	11D	0	snps	49	TCA
 wcrL_11D	11A	11D	0	snps	334	AGT
+wcrL_11D	11A	11D	0	snps	493	GAC
+wcrL_11F	11A	11F	0	snps	49	TCA
 wcrL_11F	11A	11F	0	snps	334	GCT
+wcrL_11F	11A	11F	0	snps	493	GAC
+wcrL_11F_like	11A	11F_like	0	snps	49	CCA
+wcrL_11F_like	11A	11F_like	0	snps	334	AAT
+wcrL_11F_like	11A	11F_like	0	snps	493	AAT
+wcrL_11F_like	11A	11F_like	0	genes	1
 wcrX	41A	41A	1	pseudo	1
 wcrX	41A	41F	1	pseudo	0
 wcwA	22A	22A	0	genes	1
 wcwA	22A	22F	0	genes	0
+wcwC	22A	22A	0	genes	1
+wcwC	22A	22F	0	genes	0
 wcwC_11A	11A	11A	0	genes	1
+wcwC_11A	11A	11E	0	genes	1
 wcwC_11A	11A	11B	0	genes	0
 wcwC_11A	11A	11C	0	genes	0
 wcwC_11A	11A	11D	0	genes	1
+wcwC_11F	11A	11F	0	genes	1
+wcwC_11F_like	11A	11F_like	0	genes	1
 wcwD	07A	07A	1	pseudo	1
 wcwD	07A	07F	1	pseudo	0
 wcwK_07B	07B	07B	0	snps	145	CTT
@@ -270,6 +402,13 @@ wcwK_40	07B	40	0	snps	880	TTT
 wcwK_40	07B	40	0	snps	928	AGT
 wcwK_40	07B	40	0	snps	937	GAA
 wcwK_40	07B	40	0	snps	946	GAT
+wcwR	11A	11A	0	genes	0
+wcwR	11A	11E	0	genes	0
+wcwR	11A	11B	0	genes	1
+wcwR	11A	11C	0	genes	1
+wcwR	11A	11D	0	genes	0
+wcwR	11A	11F	0	genes	0
+wcwR	11A	11F_like	0	genes	0
 wcxD_12A	12A	12A	0	snps	781	TTG
 wcxD_12A	12A	12A	0	snps	793	TAT
 wcxD_12A	12A	12A	0	snps	805	TCA
@@ -335,6 +474,10 @@ wcxF_46	12A	46	0	snps	703	CTA
 wcxF_46	12A	46	0	snps	787	CTA
 wcxF_46	12A	46	0	snps	889	ATT
 wcxF_46	12A	46	0	snps	916	AGT
+wcxM	18A	18A	0	genes	0
+wcxM	18A	18B	0	genes	0
+wcxM	18A	18C	0	genes	0
+wcxM	18A	18F	0	genes	1
 wcyC_25A	25A	25A	0	snps	429	GCT
 wcyC_25A	25A	25A	0	snps	465	ACA
 wcyC_25A	25A	25A	0	snps	573	GAA
@@ -359,9 +502,54 @@ wcyD-2	25A	38	0	allele
 wcyV	25A	25A	0	genes	0
 wcyV	25A	25F	0	genes	0
 wcyV	25A	38	0	genes	1
+whaF	20A	20A	1	pseudo	1
+whaF	20A	20B	1	pseudo	0
 wzd-1	15A	15A	0	allele
+wzd-1	15A	15D	0	allele
 wzd-2	15A	15B	0	allele
 wzd-2	15A	15C	0	allele
+wzd_19A	19A	19A	0	snps	154	ACC
+wzd_19AF	19A	19AF	0	snps	154	ACC
+wzd_19AI	19A	19AI	0	snps	154	ACC
+wzd_19AII	19A	19AII	0	snps	154	ACC
+wzd_19AIII	19A	19AIII	0	snps	154	ATC
+wze	06A	06A	0	allele
+wze	06A	06AIV	0	allele
+wzg_06AI	06A	06AI	0	allele
+wzg_06AI	06A	06AV	0	allele
+wzg_06B	06A	06B	0	allele
+wzg_06BI	06A	06BI	0	allele
+wzg_06BII	06A	06BII	0	allele
+wzg-1	19F	19F	0	allele
+wzg-1	19F	19FI	0	allele
+wzg-1	19F	19FII	0	allele
+wzg-1	19F	19FIII	0	allele
+wzg-2	19F	19FIV	0	allele
+wzg_19A	19A	19A	0	snps	445	GCT
+wzg_19A	19A	19A	0	snps	484	AAT
+wzg_19A	19A	19A	0	snps	1174	AGC
+wzg_19AI	19A	19AI	0	snps	445	TCT
+wzg_19AI	19A	19AI	0	snps	484	AAT
+wzg_19AI	19A	19AI	0	snps	1174	AGC
+wzg_19AII	19A	19AII	0	snps	445	GCT
+wzg_19AII	19A	19AII	0	snps	484	GAC
+wzg_19AII	19A	19AII	0	snps	1174	AGC
+wzg_19AIII	19A	19AIII	0	snps	445	GCT
+wzg_19AIII	19A	19AIII	0	snps	484	AAT
+wzg_19AIII	19A	19AIII	0	snps	1174	AGC
+wzg_19AF	19A	19AF	0	snps	445	GCT
+wzg_19AF	19A	19AF	0	snps	484	AAT
+wzg_19AF	19A	19AF	0	snps	1174	ACC
+wzg_19F	19F	19F	0	snps	25	CGT
+wzg_19F	19F	19F	0	snps	34	AGA
+wzg_19FI	19F	19FI	0	snps	25	CGT
+wzg_19FI	19F	19FI	0	snps	34	AAA
+wzg_19FII	19F	19FII	0	snps	25	CGT
+wzg_19FII	19F	19FII	0	snps	34	AAA
+wzg_19FIII	19F	19FIII	0	snps	25	CGT
+wzg_19FIII	19F	19FIII	0	snps	34	AAA
+wzg_19FIV	19F	19FIV	0	snps	25	GGT
+wzg_19FIV	19F	19FIV	0	snps	34	AAA
 wzh_35A	35A	35A	0	snps	465	AGG
 wzh_35A	35A	35A	0	snps	525	CGT
 wzh_35A	35A	35A	0	snps	528	TAT
@@ -374,9 +562,29 @@ wzh_42	35A	42	0	snps	465	ATG
 wzh_42	35A	42	0	snps	525	CCT
 wzh_42	35A	42	0	snps	528	GAT
 wzh_42	35A	42	0	snps	567	CGT
+wzx_19F	19F	19F	0	snps	1111	ATA
+wzx_19F	19F	19F	0	snps	1135	ATA
+wzx_19FI	19F	19FI	0	snps	1111	ATG
+wzx_19FI	19F	19FI	0	snps	1135	CTA
+wzx_19FII	19F	19FII	0	snps	1111	ATA
+wzx_19FII	19F	19FII	0	snps	1135	CTA
+wzx_19FIII	19F	19FIII	0	snps	1111	ATG
+wzx_19FIII	19F	19FIII	0	snps	1135	CTA
+wzx_19FIV	19F	19FIV	0	snps	1111	ATA
+wzx_19FIV	19F	19FIV	0	snps	1135	CTA
+wzy-15A	15A	15A	0	genes	1
+wzy-15D	15A	15D	0	genes	1
+wzy-1	19A	19A	0	allele
+wzy-1	19A	19AI	0	allele
+wzy-1	19A	19AII	0	allele
+wzy-1	19A	19AIII	0	allele
 wzy-1	23A	23A	0	allele
+wzy-2	19A	19AF	0	allele
 wzy-2	23A	23F	0	allele
 wzy-3	23A	23B	0	allele
+wzy_06A	06A	06A	0	allele
+wzy_06AII	06A	06AII	0	allele
+wzy_06E	06A	06E	0	allele
 wzy_09L	09A	09L	0	snps	846	GAC
 wzy_09N	09A	09N	0	snps	846	AAC
 wzy_12A	12A	12A	0	snps	251	ATT
@@ -384,3 +592,5 @@ wzy_12B	12A	12B	0	snps	251	ACT
 wzy_12F	12A	12F	0	snps	251	ACT
 wzy_44	12A	44	0	snps	251	ACT
 wzy_46	12A	46	0	snps	251	ACT
+alternative_aliB_NT	alternative_aliB_NT	alternative_aliB_NT	1	ref
+Swiss_NT	Swiss_NT	Swiss_NT	1	ref
