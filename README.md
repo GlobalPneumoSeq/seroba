@@ -11,11 +11,13 @@ SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS read
   - [Introduction](#introduction)
   - [Docker Image](#docker-image)
   - [Usage](#usage)
+    - [Running with docker](#running-with-docker)
+    - [Running with singularity](#running-with-singularity)
     - [Running the tests](#running-the-tests)
     - [Setting up the database](#setting-up-the-database)
     - [Creates a Database for kmc and ariba](#creates-a-database-for-kmc-and-ariba)
     - [Identify serotype of your input data](#identify-serotype-of-your-input-data)
-    - [Summaries the output in one tsv file](#summaries-the-output-in-one-tsv-file)
+    - [Summarise the output in one csv file](#summarises-the-output-in-one-csv-file)
   - [Output](#output)
   - [Troubleshooting](#troubleshooting)
   - [License](#license)
@@ -30,6 +32,17 @@ Upon each release, a Docker Image is automatically built and pushed to [Docker H
 
 ## Usage
 All the following instructions are assuming you are working within a Docker container
+
+### Running with docker
+To run serotyping with docker using the pre-built docker image which contains the database, run a command like this (replacing /path/to/reads with the folder containing your reads and /data/read_[12].fastq.gz with your read files)
+
+```docker run --rm -it -v /path/to/reads:/data sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/read_1.fastq.gz /data/read_2.fastq.gz /data/output_folder```
+
+### Running with singularity
+To run serotyping with singularity using the pre-built docker image which contains the database, run a command like this (replacing /path/to/reads with the folder containing your reads and /data/read_[12].fastq.gz with your read files)
+
+```singularity exec --bind /path/to/reads:/data docker://sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/read_1.fastq.gz /data/read_2.fastq.gz /data/output_folder```
+
 
 ### Running the tests
 The test can be run from the top level directory:  
@@ -71,7 +84,7 @@ usage: seroba runSerotyping [options]  <databases directory> <read1> <read2> <pr
       --coverage COVERAGE  threshold for k-mer coverage of the reference sequence (default = 20)                         
 ```
 
-### Summaries the output in one tsv file
+### Summarises the output in one csv file
 ```
 usage: seroba summary  <output folder>
 
