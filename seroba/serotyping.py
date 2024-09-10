@@ -532,7 +532,15 @@ class Serotyping:
             sero = ' '.join(sero).split()
             if len(sero) == 3:
                 serotype = f"{sero[0]}{sero[1]}-{sero[2]}"
-        
+
+        if serotype == "19AF":
+            # discrepancies with 19AF, only call 19AF if wzy_2 is in the report, otherwise call 19A
+            with open(report_file) as f:
+                for line in f:
+                    if "wzy_1" in line:
+                        serotype = "19A"
+                        return serotype , relevant_genetic_elements
+
         return serotype , relevant_genetic_elements
 
 
