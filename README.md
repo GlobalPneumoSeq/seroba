@@ -14,10 +14,8 @@ SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS read
     - [Running with docker](#running-with-docker)
     - [Running with singularity](#running-with-singularity)
     - [Running the tests](#running-the-tests)
-    - [Setting up the database](#setting-up-the-database)
-    - [Creates a Database for kmc and ariba](#creates-a-database-for-kmc-and-ariba)
-    - [Identify serotype of your input data](#identify-serotype-of-your-input-data)
-    - [Summarise the output in one csv file](#summarises-the-output-in-one-csv-file)
+    - [Running on multiple samples](#run-on-multiple-samples)
+    - [Summarise the output in one csv file](#summarise-the-output-in-one-csv-file)
   - [Output](#output)
   - [Troubleshooting](#troubleshooting)
   - [License](#license)
@@ -31,66 +29,56 @@ Upon each release, a Docker Image is automatically built and pushed to [Docker H
 
 
 ## Usage
-All the following instructions are assuming you are working within a Docker container
 
 ### Running with docker
-To run serotyping with docker using the pre-built docker image which contains the database, run a command like this (replacing /path/to/reads with the folder containing your reads and /data/read_[12].fastq.gz with your read files)
+To run serotyping with docker using the pre-built docker image which contains the database, run a command like below. Replace the placeholder values (/path/to/reads, read1_file_name, read2_file_name, output_folder_prefix) in the command.
 
-```docker run --rm -it -v /path/to/reads:/data sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/read_1.fastq.gz /data/read_2.fastq.gz /data/output_folder```
+```
+docker run --rm -it -u $(id -u):$(id -g) -v /path/to/reads:/data sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/read1_file_name /data/read2_file_name /data/output_folder_prefix
+```
 
 ### Running with singularity
-To run serotyping with singularity using the pre-built docker image which contains the database, run a command like this (replacing /path/to/reads with the folder containing your reads and /data/read_[12].fastq.gz with your read files)
+To run serotyping with singularity using the pre-built docker image which contains the database, run a command like below. Replace the placeholder values (/path/to/reads, read1_file_name, read2_file_name, output_folder_prefix) in the command.
 
-```singularity exec --bind /path/to/reads:/data docker://sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/read_1.fastq.gz /data/read_2.fastq.gz /data/output_folder```
+```
+singularity exec --bind /path/to/reads:/data docker://sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/read1_file_name /data/read2_file_name /data/output_folder_prefix
+```
 
+### Run on multiple samples
+1. Place all your files into a single directory and `cd` into that directory
+2. Run seroBA on all samples using a for loop
+
+Run with docker:
+```
+for READ1 in *1.fastq.gz; do SAMPLE=${READ1%_1.fastq.gz}; docker run --rm -it -u $(id -u):$(id -g) -v $PWD:/data sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/${SAMPLE}_1.fastq.gz /data/${SAMPLE}_2.fastq.gz /data/${SAMPLE}_RESULT; done
+```
+
+Run with singularity:
+```
+for READ1 in *1.fastq.gz; do SAMPLE=${READ1%_1.fastq.gz}; singularity exec --bind $PWD:/data docker://sangerbentleygroup/seroba seroba runSerotyping /seroba/database /data/${SAMPLE}_1.fastq.gz /data/${SAMPLE}_2.fastq.gz /data/${SAMPLE}_RESULT; done
+```
+
+### Summarise the output in one CSV file
+To summarise all the output into one CSV file, you can use the `seroba summary` command, run from the folder where your seroBA results are stored:
+
+Run with docker:
+```
+docker run --rm -it -u $(id -u):$(id -g) -v $PWD:/data sangerbentleygroup/seroba seroba summary /data/
+```
+
+Run with singularity:
+```
+singularity exec --bind $PWD:/data docker://sangerbentleygroup/seroba seroba summary /data/
+```
+
+The summary file will be available as `summary.csv` in the directory.
 
 ### Running the tests
-The test can be run from the top level directory:  
-
+To run the tests using docker, run the below command:
 ```
-python3 setup.py test
-```
-
-### Setting up the database
-SeroBA is packaged with a capsular variant database (CTVdb) which contains references and genetic information for 108 serotypes. It is also possible to add new serotypes by adding the references sequence to the "references.fasta" file in the database folder. Out of the information provided by this database a TSV file is created while using seroba createDBs. You can easily put in additional genetic information for any of these serotypes in the given format.
-
-### Creates a Database for kmc and ariba
-```
-usage: seroba createDBs  <database dir> <kmer size>
-
-positional arguments:
-    database dir     output directory for kmc and ariba Database
-    kmer size   kmer_size you want to use for kmc , recommended = 71
-
-Example : 
-seroba createDBs my_database/ 71
-```
-### Identify serotype of your input data
-```
-usage: seroba runSerotyping [options]  <databases directory> <read1> <read2> <prefix>
-
-    positional arguments:
-      database dir         path to database directory
-      read1              forward read file
-      read2              reverse read file
-      prefix             unique prefix
-
-    optional arguments:
-      -h, --help         show this help message and exit
-
-    Other options:
-      --noclean NOCLEAN  Do not clean up intermediate files (assemblies, ariba
-                         report)
-      --coverage COVERAGE  threshold for k-mer coverage of the reference sequence (default = 20)                         
+docker run --workdir /seroba -it --rm sangerbentleygroup/seroba python3 setup.py test
 ```
 
-### Summarises the output in one csv file
-```
-usage: seroba summary  <output folder>
-
-positional arguments:
-  output folder   directory where the output directories from seroba runSerotyping are stored
-```   
 
 ## Output
 In the folder 'prefix' you will find a file named `pred.csv` including your predicted serotype and genetic variant as well as a file called detailed_serogroup_info.txt including information about SNP, genes, and alleles that are found in your reads. After the use of `seroba summary` a csv file called `summary.csv` is created that consists of four columns (Sample,Serotype,Genetic_Variant,Contamination_Status). Serotypes that do not match any reference are marked as "untypable".
