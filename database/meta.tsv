@@ -124,6 +124,10 @@
 47A	47A	47A	1	ref
 47F	47F	47F	1	ref
 48	48	48	1	ref
+Group2_pspK_non_encapsulated	Group2_pspK_non_encapsulated	Group2_pspK_non_encapsulated	1	ref
+S_mitis_Group3_aliC_aliD_non_encapsulated	S_mitis_Group3_aliC_aliD_non_encapsulated	S_mitis_Group3_aliC_aliD_non_encapsulated	1	ref
+Group3_aliC_aliD_non_encapsulated	Group3_aliC_aliD_non_encapsulated	Group3_aliC_aliD_non_encapsulated	1	ref
+Group3_aliD_non_encapsulated	Group3_aliD_non_encapsulated	Group3_aliD_non_encapsulated	1	ref
 HG264	19B	19B	0	genes	0
 HG264	19B	19C	0	genes	1
 gct	11A	11A	1	pseudo	0
@@ -627,5 +631,3 @@ wzy_12B	12A	12B	0	snps	251	ACT
 wzy_12F	12A	12F	0	snps	251	ACT
 wzy_44	12A	44	0	snps	251	ACT
 wzy_46	12A	46	0	snps	251	ACT
-alternative_aliB_NT	alternative_aliB_NT	alternative_aliB_NT	1	ref
-Swiss_NT	Swiss_NT	Swiss_NT	1	ref
