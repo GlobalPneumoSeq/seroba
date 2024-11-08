@@ -124,10 +124,10 @@
 47A	47A	47A	1	ref
 47F	47F	47F	1	ref
 48	48	48	1	ref
-Group2_pspK_non_encapsulated	Group2_pspK_non_encapsulated	Group2_pspK_non_encapsulated	1	ref
-S_mitis_Group3_aliC_aliD_non_encapsulated	S_mitis_Group3_aliC_aliD_non_encapsulated	S_mitis_Group3_aliC_aliD_non_encapsulated	1	ref
-Group3_aliC_aliD_non_encapsulated	Group3_aliC_aliD_non_encapsulated	Group3_aliC_aliD_non_encapsulated	1	ref
-Group3_aliD_non_encapsulated	Group3_aliD_non_encapsulated	Group3_aliD_non_encapsulated	1	ref
+NCC1_pspK_non_encapsulated	NCC1_pspK_non_encapsulated	NCC1_pspK_non_encapsulated	1	ref
+S_mitis_NCC2_aliC_aliD_non_encapsulated	S_mitis_NCC2_aliC_aliD_non_encapsulated	S_mitis_NCC2_aliC_aliD_non_encapsulated	1	ref
+NCC2_aliC_aliD_non_encapsulated	NCC2_aliC_aliD_non_encapsulated	NCC2_aliC_aliD_non_encapsulated	1	ref
+NCC3_aliD_non_encapsulated	NCC3_aliD_non_encapsulated	NCC3_aliD_non_encapsulated	1	ref
 HG264	19B	19B	0	genes	0
 HG264	19B	19C	0	genes	1
 gct	11A	11A	1	pseudo	0
