@@ -521,7 +521,14 @@ class Serotyping:
                 if first[0] == min(serotype_count, key=serotype_count.get):
                     serotype = min(serotype_count, key=serotype_count.get)
                 elif serotype_count["33E"] == 0 and first[0] != min(serotype_count, key=serotype_count.get):
-                    serotype = "33F"
+                    for row in tsvin:
+                        if "wcyO" in row and ("FSHIFT" in row or 'TRUNC' in row) and (float(row[8])/float(row[7]) > 0.95):
+                            serotype = "33F-1b"
+                            return serotype, relevant_genetic_elements
+                        elif "wcyO" in row:
+                            serotype = "33F-1a"
+                        else:
+                            serotype = "33F"
                 else:
                     serotype = first[0]
         else :
