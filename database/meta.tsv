@@ -70,7 +70,6 @@
 19FIII	19F	19FIII	1	ref
 19FIV	19F	19FIV	1	ref
 20A	20A	20A	1	ref
-20AI	20A	20AI	1	ref
 20B	20A	20B	1	ref
 20C	20A	20C	1	ref
 21	21	21	1	ref
@@ -315,11 +314,10 @@ wciZ	15A	15C	1	pseudo	1
 wciG	35B	35B	1	pseudo	0
 wciG	35B	35D	1	pseudo	1
 wciG-20	20A	20A	0	genes	1
-wciG-20	20A	20AI	0	genes	1
 wciG-20	20A	20B	0	genes	1
 wciG-20	20A	20C	0	genes	0
-wciG-33G	33G	33G	0	genes	1
-wciG-33G	33G	33H	0	genes	0
+wciG-33G	33G	33G	0	pseudo	1
+wciG-33G	33G	33H	0	pseudo	0
 wcjA_09L	09A	09L	0	snps	414	CAT
 wcjA_09L	09A	09L	0	snps	429	GGT
 wcjA_09L	09A	09L	0	snps	528	GAT
@@ -534,7 +532,6 @@ wcyV	25A	25A	0	genes	0
 wcyV	25A	25F	0	genes	0
 wcyV	25A	38	0	genes	1
 whaF	20A	20A	1	pseudo	1
-whaF	20A	20AI	1	pseudo	0
 whaF	20A	20B	1	pseudo	0
 whaF	20A	20C	1	pseudo	0
 wzd-1	15A	15A	0	allele
