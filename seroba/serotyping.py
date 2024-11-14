@@ -596,25 +596,18 @@ class Serotyping:
             serogroup_fasta = os.path.join(self.pneumcat_refs,serogroup+'.fasta')
             self.sero, self.imp = Serotyping._find_serotype(assemblie_file,serogroup_fasta,self.meta_data_dict[serogroup],\
                 self.cluster_serotype_dict[cluster],report_file,self.prefix)
-            wciG = True
-            whaF = True
-            with open(report_file) as fobj:
-                tsvin = csv.reader(fobj, delimiter='\t')
-                next(tsvin, None)
-                first = next(tsvin)
-                for row in tsvin:
-                    if "whaF" in row and ("FSHIFT" in row or 'TRUNC' in row):
-                        with open(f"{self.prefix}/assembled_genes.fa") as handle:
-                            for line in handle:
-                                if "stop" in line.lower():
-                                    whaF = False
-                                    break
-                    if "wciG_20" in row and ("FSHIFT" in row or 'TRUNC' in row):
-                        with open(f"{self.prefix}/assembled_genes.fa") as handle:
-                            for line in handle:
-                                if "stop" in line.lower():
-                                    wciG = False
-                                    break
+            wciG = False
+            whaF = False
+            with open(f"{self.prefix}/assembled_genes.fa") as handle:
+                for record in SeqIO.parse(handle, "fasta"):
+                    if record.seq.startswith("ATGAGAAAAAATCG"):
+                        wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                        if wciG_completeness[0] and not wciG_completeness[1]:
+                            wciG = True
+                    if record.seq.startswith("ATGATACATAAAAT"):
+                        whaF_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                        if whaF_completeness[0] and not whaF_completeness[1]:
+                            whaF = True
             if whaF and not wciG:
                 self.sero = "20C"
             elif whaF:
@@ -629,20 +622,13 @@ class Serotyping:
             serogroup_fasta = os.path.join(self.pneumcat_refs,serogroup+'.fasta')
             self.sero, self.imp = Serotyping._find_serotype(assemblie_file,serogroup_fasta,self.meta_data_dict[serogroup],\
                 self.cluster_serotype_dict[cluster],report_file,self.prefix)
-            wciG_33G = True
-            with open(report_file) as fobj:
-                tsvin = csv.reader(fobj, delimiter='\t')
-                next(tsvin, None)
-                first = next(tsvin)
-                for row in tsvin:
-                    if "wciG_33G" in row and ("FSHIFT" in row or 'TRUNC' in row):
-                        with open(f"{self.prefix}/assembled_genes.fa") as handle:
-                            for line in handle:
-                                print(line)
-                                if "stop" in line.lower():
-                                    wciG_33G = False
-                                    break
-            if wciG_33G:
+            wciG = False
+            with open(f"{self.prefix}/assembled_genes.fa") as handle:
+                for record in SeqIO.parse(handle, "fasta"):
+                    wciG_completeness = Serotyping.check_sequence_completeness(record.seq.lower())
+                    if wciG_completeness[0] and not wciG_completeness[1]:
+                        wciG = True
+            if wciG:
                 self.sero = "33G"
             else:
                 self.sero = "33H"
