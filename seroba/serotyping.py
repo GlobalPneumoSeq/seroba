@@ -521,7 +521,14 @@ class Serotyping:
                 if first[0] == min(serotype_count, key=serotype_count.get):
                     serotype = min(serotype_count, key=serotype_count.get)
                 elif serotype_count["33E"] == 0 and first[0] != min(serotype_count, key=serotype_count.get):
-                    serotype = "33F"
+                    for row in tsvin:
+                        if "wcyO" in row and ("FSHIFT" in row or 'TRUNC' in row):
+                            serotype = "33F-1b"
+                            return serotype, relevant_genetic_elements
+                        elif "wcyO" in row:
+                            serotype = "33F-1a"
+                        else:
+                            serotype = "33F"
                 else:
                     serotype = first[0]
         else :
@@ -584,6 +591,11 @@ class Serotyping:
             self.sero = Serotyping.serotype19F(assemblie_file, report_file)
         # check for disruptive mutations in whaF and wciG to resolve serogroup 20 serotypes
         elif "20" in self.best_serotype:
+            report_file  = os.path.join(self.prefix,'report.tsv')
+            serogroup = self.cluster_serotype_dict[cluster][0]
+            serogroup_fasta = os.path.join(self.pneumcat_refs,serogroup+'.fasta')
+            self.sero, self.imp = Serotyping._find_serotype(assemblie_file,serogroup_fasta,self.meta_data_dict[serogroup],\
+                self.cluster_serotype_dict[cluster],report_file,self.prefix)
             wciG = False
             whaF = False
             with open(f"{self.prefix}/assembled_genes.fa") as handle:
@@ -602,8 +614,14 @@ class Serotyping:
                 self.sero = "20B"
             elif not whaF:
                 self.sero = "20A"
+            self._print_detailed_output(report_file,self.imp,self.sero)
         # check for disruptive mutations in wciG to resolve 33G/33H
         elif "33G" in self.best_serotype or "33H" in self.best_serotype:
+            report_file  = os.path.join(self.prefix,'report.tsv')
+            serogroup = self.cluster_serotype_dict[cluster][0]
+            serogroup_fasta = os.path.join(self.pneumcat_refs,serogroup+'.fasta')
+            self.sero, self.imp = Serotyping._find_serotype(assemblie_file,serogroup_fasta,self.meta_data_dict[serogroup],\
+                self.cluster_serotype_dict[cluster],report_file,self.prefix)
             wciG = False
             with open(f"{self.prefix}/assembled_genes.fa") as handle:
                 for record in SeqIO.parse(handle, "fasta"):
@@ -614,6 +632,7 @@ class Serotyping:
                 self.sero = "33G"
             else:
                 self.sero = "33H"
+            self._print_detailed_output(report_file,self.imp,self.sero)
         else:
             report_file = os.path.join(self.prefix,'report.tsv')
             serogroup = self.cluster_serotype_dict[cluster][0]
@@ -667,9 +686,6 @@ class Serotyping:
                     # catch uncertain serogroup 6 calls
                     fobj.write(header)
                     fobj.write(f"{self.prefix},Serogroup 6,{self.sero},{flag}\n")
-                elif "20A" in self.sero:
-                    fobj.write(header)
-                    fobj.write(f"{self.prefix},20A,20A(20A-I),{flag}\n")
                 else:
                     fobj.write(header)
                     serotype = self.check_genetic_variant(self.sero)
