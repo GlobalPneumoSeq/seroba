@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='seroba',
-    version='2.0.1',
+    version='2.0.3',
     description='SEROBA: Serotyping for illumina reads',
     packages = find_packages(),
     author='Lennard Epping',
