@@ -13,10 +13,11 @@ setup(
     test_suite='nose.collector',
     tests_require=['nose >= 1.3'],
     install_requires=[
+        'ariba >= 2.9.1',
         'pymummer==0.10.3',
         'PyYAML>=3.12',
         'biopython>=1.68',
-        'pyfastaq>=3.15.0'
+        'pyfastaq>=3.15.0',
     ],
     license='GPLv3',
     classifiers=[

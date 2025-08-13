@@ -1,7 +1,9 @@
-FROM staphb/ariba:2.14.6 as ariba_stage
+# This container will install SeroBA from master
 
+# base image
 FROM ubuntu:bionic as app
 
+# set workdir to default for building; set to /data at the end
 WORKDIR /
 
 # Install ubuntu dependencies
@@ -19,19 +21,15 @@ RUN apt-get update && apt-get -y upgrade && apt-get -y install git \
   python-minimal && \
   apt-get clean && apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
-# Copy ARIBA installation from ariba_stage
-COPY --from=ariba_stage /usr/local/ /usr/local/
-COPY --from=ariba_stage /usr/bin/ /usr/bin/
-
 # Copy repository into the image and install dependencies
 COPY . /seroba/
-RUN cd /seroba && \
+RUN cd seroba && \
   /seroba/install_dependencies.sh
 
 # set path
 ENV PATH="/seroba:/seroba/build:/seroba/build/bin:/seroba/build/MUMmer3.23:/seroba/build/bowtie2-2.3.1-legacy:/seroba/build/cdhit-4.6.8:${PATH}"
 
-# install seroba and create database
+# install seroba and create database (/seroba/database/)
 RUN cd /seroba && \
   python3 setup.py install && \
   seroba createDBs database/ 71
@@ -39,10 +37,13 @@ RUN cd /seroba && \
 RUN mkdir /data
 WORKDIR /data
 
+# new base for testing
 FROM app as test
 
+# print out various help options and version
 RUN seroba version && \
   seroba --help
 
+# run built-in test
 RUN cd /seroba && \
   python3 setup.py test

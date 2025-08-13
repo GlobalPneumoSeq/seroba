@@ -11,6 +11,7 @@ CDHIT_VERSION=4.6.8
 PYSAM_VERSION=0.15.0
 PYMUMMER_VERSION=0.10.3
 PYYAML_VERSION=5.4.1
+BS4_VERSION=4.12.3
 
 KMC3_DOWNLOAD_URL="https://github.com/refresh-bio/KMC/releases/download/v${KMC_VERSION}/KMC${KMC_VERSION}.linux.x64.tar.gz"
 MUMMER_DOWNLOAD_URL="http://downloads.sourceforge.net/project/mummer/mummer/${MUMMER_VERSION}/MUMmer${MUMMER_VERSION}.tar.gz"
@@ -85,7 +86,7 @@ update_path ${mummer_dir}
 update_path ${bowtie2_dir}
 update_path ${cdhit_dir}
 
-pip3 install ariba pysam==${PYSAM_VERSION} pymummer==${PYMUMMER_VERSION} biopython pyyaml==${PYYAML_VERSION}
+pip3 install ariba pysam==${PYSAM_VERSION} pymummer==${PYMUMMER_VERSION} biopython pyyaml==${PYYAML_VERSION} beautifulsoup4==${BS4_VERSION} requests
 
 echo "Add the following line to your ~/.bashrc profile"
 echo "export PATH=${build_dir}:${kmc_dir}:${mummer_dir}:${bowtie2_dir}:${cdhit_dir}:${PATH}"
