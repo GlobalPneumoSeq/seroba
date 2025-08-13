@@ -507,8 +507,8 @@ class Serotyping:
         elif len(min_keys) > 1 and "33E" in min_keys and serotype_count["33E"] < 0:
             serotype = "33E"
         # catch exception where ARIBA calls 24A but the sequence is actually 24B (assembly best match to 24A when it should not)
-        elif len(min_keys) > 1 and "24A" in min_keys and serotype_count["24A"] == 4:
-            serotype = "24B"
+        elif min_keys == ['24B', '24C', '24F']:
+            serotype = "24F"
         elif len(min_keys) > 1:
             with open(report_file) as fobj:
                 tsvin = csv.reader(fobj, delimiter='\t')
