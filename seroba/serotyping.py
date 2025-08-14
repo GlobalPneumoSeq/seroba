@@ -506,6 +506,9 @@ class Serotyping:
         # if the truncated wciE gene is present, call serotype 33E
         elif len(min_keys) > 1 and "33E" in min_keys and serotype_count["33E"] < 0:
             serotype = "33E"
+        # catch exception where ARIBA calls 24A but the sequence is actually 24B (assembly best match to 24A when it should not)
+        elif min_keys == ['24B', '24C', '24F']:
+            serotype = "24F"
         elif len(min_keys) > 1:
             with open(report_file) as fobj:
                 tsvin = csv.reader(fobj, delimiter='\t')
