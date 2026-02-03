@@ -1,5 +1,5 @@
 # SeroBA
-This is a fork of [Wellcome Sanger Institute Pathogen Informatics' SeroBA](https://github.com/sanger-pathogens/seroba). As the original SeroBA is no longer maintained, this fork mainly aims to integrate bug fixes and database updates to provide a stable, updated, and containerised version of SeroBA. 
+This the repository of SeroBA v2, it is based on the original [Wellcome Sanger Institute Pathogen Informatics' SeroBA](https://github.com/sanger-pathogens/seroba). As the original SeroBA is no longer maintained, this version aims to integrate bug fixes and database updates to provide a stable, updated, and containerised version of SeroBA. 
 
 ## About 
 SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS reads for given references.
@@ -13,9 +13,9 @@ SeroBA is a k-mer based Pipeline to identify the Serotype from Illumina NGS read
   - [Usage](#usage)
     - [Running with docker](#running-with-docker)
     - [Running with singularity](#running-with-singularity)
+    - [Run on multiple samples](#run-on-multiple-samples)
+    - [Summarise the output in one CSV file](#summarise-the-output-in-one-csv-file)
     - [Running the tests](#running-the-tests)
-    - [Running on multiple samples](#run-on-multiple-samples)
-    - [Summarise the output in one csv file](#summarise-the-output-in-one-csv-file)
   - [Output](#output)
   - [Troubleshooting](#troubleshooting)
   - [License](#license)
@@ -117,5 +117,12 @@ be a hint for a mosaic serotpye.
 SeroBA is free software, licensed under [GPLv3](https://github.com/sanger-pathogens/seroba/blob/master/LICENSE)
 
 ## Citation
-__SeroBA: rapid high-throughput serotyping of Streptococcus pneumoniae from whole genome sequence data__  
-Epping L, van Tonder, AJ, Gladstone RA, GPS Consortium, Bentley SD, Page AJ, Keane JA, Microbial Genomics 2018, doi: [10.1099/mgen.0.000186](http://mgen.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000186)
+*SeroBA v2*
+
+__SeroBA(v2.0) and SeroBAnk: a robust genome-based serotyping scheme and comprehensive atlas of capsular diversity in *Streptococcus pneumoniae*__
+Lorenz O, King AC, Hung HCH, Ganaie FA, Wyllie, AL, Manna S, Satzke C, van der Linden M, Ravenscroft N, Slotved H-C, McGee L, Nahm MH, Bentley SD and Lo SW, Microbial Genomics 2025, doi: [10.1099/mgen.0.001483](https://doi.org/10.1099/mgen.0.001483)
+
+*Original SeroBA*
+
+__SeroBA: rapid high-throughput serotyping of *Streptococcus pneumoniae* from whole genome sequence data__  
+Epping L, van Tonder AJ, Gladstone RA, GPS Consortium, Bentley SD, Page AJ, Keane JA, Microbial Genomics 2018, doi: [10.1099/mgen.0.000186](https://doi.org/10.1099/mgen.0.000186)
